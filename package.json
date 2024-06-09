@@ -17,6 +17,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-node": "^5.0.1",
+		"bcryptjs": "^2.4.3",
 		"mysql2": "^3.10.0"
 	}
 }

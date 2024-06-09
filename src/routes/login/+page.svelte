@@ -1,9 +1,67 @@
-<svelete:head>
-  <link rel="stylesheet" href="css/color.css">
-</svelete:head>
+<script>
+  import { goto } from "$app/navigation";
+  let isRegister = false;
+  let email = '';
+  let password = '';
+  let name = ''; 
+
+  function showRegister() {
+    isRegister = true;
+  }
+
+  function showLogin() {
+    isRegister = false;
+  }
+
+  async function login() {
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Store user data/token and navigate to the form application
+        localStorage.setItem('user', JSON.stringify(data.user));
+        goto('/');
+      } else {
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  }
+
+  async function register() {
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Store user data/token and navigate to the login or dashboard
+        localStorage.setItem('user', JSON.stringify(data.user));
+        goto('/');
+      } else {
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error registering:', error);
+    }
+  }
+</script>
+
+<svelte:head>
+  <link rel="stylesheet" href="css/color.css" />
+</svelte:head>
 
 <div class="mainContainer">
-<div class="container">
+  <div class="container">
     <!-- Outer Row -->
     <div class="row justify-content-center">
       <div class="col-xl-10 col-lg-12 col-md-11">
@@ -15,55 +73,101 @@
               <div class="col-lg-6 mx-auto">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">
+                      {#if isRegister}
+                        Create an Account!
+                      {:else}
+                        Welcome Back!
+                      {/if}
+                    </h1>
                   </div>
-                  <form class="user">
-                    <div class="form-group">
-                      <input
-                        type="email"
-                        class="form-control form-control-user"
-                        id="exampleInputEmail"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter Email Address..."
-                      />
-                    </div>
-                    <div class="form-group">
-                      <input
-                        type="password"
-                        class="form-control form-control-user"
-                        id="exampleInputPassword"
-                        placeholder="Password"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
+                  {#if isRegister}
+                    <!-- Register Form -->
+                    <form class="user" on:submit|preventDefault={register}>
+                      <div class="form-group">
                         <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id="customCheck"
+                          type="text"
+                          class="form-control form-control-user"
+                          placeholder="Enter Your Name..."
+                          bind:value={name}
                         />
-                        <label class="custom-control-label" for="customCheck"
-                          >Remember Me</label
-                        >
                       </div>
+                      <div class="form-group">
+                        <input
+                          type="email"
+                          class="form-control form-control-user"
+                          placeholder="Enter Email Address..."
+                          bind:value={email}
+                        />
+                      </div>
+                      <div class="form-group">
+                        <input
+                          type="password"
+                          class="form-control form-control-user"
+                          placeholder="Password"
+                          bind:value={password}
+                        />
+                      </div>
+                      <button class="btn btn-primary btn-user btn-block" type="submit">
+                        Register
+                      </button>
+                    </form>
+                    <hr />
+                    <div class="text-center">
+                      <a class="small" href="/login" on:click={showLogin}>
+                        Already have an account? Login!
+                      </a>
                     </div>
-                    <a
-                      href="index.html"
-                      class="btn btn-primary btn-user btn-block"
-                      >Login</a
-                    >
-                  </form>
-                  <hr />
-                  <div class="text-center">
-                    <a class="small" href="forgot-password.html"
-                      >Forgot Password?</a
-                    >
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="register.html"
-                      >Create an Account!</a
-                    >
-                  </div>
+                  {:else}
+                    <!-- Login Form -->
+                    <form class="user" on:submit|preventDefault={login}>
+                      <div class="form-group">
+                        <input
+                          type="email"
+                          class="form-control form-control-user"
+                          id="exampleInputEmail"
+                          aria-describedby="emailHelp"
+                          placeholder="Enter Email Address..."
+                          bind:value={email}
+                        />
+                      </div>
+                      <div class="form-group">
+                        <input
+                          type="password"
+                          class="form-control form-control-user"
+                          id="exampleInputPassword"
+                          placeholder="Password"
+                          bind:value={password}
+                        />
+                      </div>
+                      <div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                          <input
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="customCheck"
+                          />
+                          <label class="custom-control-label" for="customCheck">
+                            Remember Me
+                          </label>
+                        </div>
+                      </div>
+                      <button class="btn btn-primary btn-user btn-block" type="submit">
+                        Login
+                      </button>
+                    </form>
+                    <hr />
+                    <div class="text-center">
+                      <a class="small" href="forgot-password.html">
+                        Forgot Password?
+                      </a>
+                    </div>
+                    <div class="text-center">
+                      <a class="small" href="/login" on:click={showRegister}>
+                        Create an Account!
+                      </a>
+                    </div>
+                  {/if}
                 </div>
               </div>
             </div>
@@ -80,9 +184,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #323B5D;
-    background-image: linear-gradient(180deg, white 10%, #2FAEC0 100%);
+    background-color: #323b5d;
+    background-image: linear-gradient(180deg, white 10%, #2faec0 100%);
     background-size: cover;
     font-family: "Poppins", sans-serif;
-  } 
+  }
 </style>
