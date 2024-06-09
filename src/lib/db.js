@@ -6,9 +6,9 @@ const pool = mysql.createPool({
   user: "root",
   password: "password",
   database: "infomag",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+  // waitForConnections: true,
+  // connectionLimit: 10,
+  // queueLimit: 0,
 });
 
 export default pool;
