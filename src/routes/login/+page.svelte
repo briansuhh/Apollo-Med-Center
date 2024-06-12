@@ -25,7 +25,7 @@
         const data = await response.json();
         // Store user data/token and navigate to the form application
         localStorage.setItem('user', JSON.stringify(data.user));
-        goto('/');
+        goto('/registrationform');
       } else {
         console.error('Login failed');
       }
@@ -46,7 +46,7 @@
         const data = await response.json();
         // Store user data/token and navigate to the login or dashboard
         localStorage.setItem('user', JSON.stringify(data.user));
-        goto('/');
+        goto('/login');
       } else {
         console.error('Registration failed');
       }
@@ -188,5 +188,6 @@
     background-image: linear-gradient(180deg, white 10%, #2faec0 100%);
     background-size: cover;
     font-family: "Poppins", sans-serif;
+    
   }
 </style>
