@@ -46,7 +46,7 @@
         const data = await response.json();
         // Store user data/token and navigate to the login or dashboard
         localStorage.setItem('user', JSON.stringify(data.user));
-        goto('/login');
+        showLogin();
       } else {
         console.error('Registration failed');
       }
