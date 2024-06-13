@@ -25,7 +25,7 @@
         const data = await response.json();
         // Store user data/token and navigate to the form application
         localStorage.setItem('user', JSON.stringify(data.user));
-        goto('/registrationform');
+        goto('/applicationform');
       } else {
         console.error('Login failed');
       }

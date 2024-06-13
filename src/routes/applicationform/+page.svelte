@@ -74,7 +74,7 @@
 
     async function registerApplicant() {
         try {
-            const response = await fetch('/api/registrationform', {
+            const response = await fetch('/api/applicationform', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -84,11 +84,11 @@
 
             if (response.ok) {
                 const result = await response.json();
-                alert('Registration successful');
-                goto('/registrationform'); 
+                alert('Application form registration successful');
+                goto('/applicationform'); 
             } else {
                 const error = await response.json();
-                alert(`Registration failed: ${error.message}`);
+                alert(`Application form registration failed: ${error.message}`);
             }
         } catch (error) {
             console.error('Error:', error);
