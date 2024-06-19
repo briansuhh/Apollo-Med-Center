@@ -101,6 +101,23 @@
     <link rel="stylesheet" href="/css/color.css">
 </svelte:head>
 
+<nav class="navbar navbar-light bg-light bg-header">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="images/logo.png" alt="" width="auto" height="50" />
+        <span class="logo-text"> Apollo Medical Center</span>
+      </a>
+      <div class="d-flex">
+        <button class="btn log-text" on:click={() => goto(`/login`)}>Login</button
+        >
+        <div class="vr"></div>
+        <button class="btn log-text" on:click={() => goto(`/login`)}
+          >Register</button
+        >
+      </div>
+    </div>
+  </nav>
+
 <div class="mainContainer">
     <div class="container">
         <h2>Register Applicant</h2>
@@ -229,7 +246,7 @@
                 <label for="postResDuration">Post-Residency Duration</label>
                 <input type="text" id="postResDuration" bind:value={applicant.postResDuration} required>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary" id="regibtn">Register</button>
         </form>
     </div>
 </div>
@@ -288,7 +305,9 @@
         padding: 8px;
         box-sizing: border-box;
     }
-    button {
+
+
+    #regibtn {
         width: 100%;
         padding: 10px;
         background: #2FAEC0;
@@ -297,7 +316,37 @@
         border-radius: 5px;
         cursor: pointer;
     }
-    button:hover {
+    #regibtn:hover {
         background: #28a1b0;
     }
+
+    .logo-text {
+    font-size: 16px;
+    color: #323b5d;
+    font-weight: bold;
+  }
+
+  .log-text {
+    font-size: 16px;
+    color: #2faec0;
+    font-weight: bold;
+  }
+
+  .bg-header {
+    background: #f9f9fd;
+  }
+
+  .navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+
+  .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 </style>

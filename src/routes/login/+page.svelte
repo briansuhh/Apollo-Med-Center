@@ -1,5 +1,6 @@
 <script>
   import { goto } from "$app/navigation";
+
   let isRegister = false;
   let email = '';
   let password = '';
@@ -60,8 +61,26 @@
   <link rel="stylesheet" href="css/color.css" />
 </svelte:head>
 
+
+<nav class="navbar navbar-light bg-light bg-header">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img src="images/logo.png" alt="" width="auto" height="50" />
+      <span class="logo-text"> Apollo Medical Center</span>
+    </a>
+    <div class="d-flex">
+      <button class="btn log-text" on:click={() => goto(`/login`)}>Login</button
+      >
+      <div class="vr"></div>
+      <button class="btn log-text" on:click={() => goto(`/login`)}
+        >Register</button
+      >
+    </div>
+  </div>
+</nav>
+
 <div class="mainContainer">
-  <div class="container">
+  <div class="container">    
     <!-- Outer Row -->
     <div class="row justify-content-center">
       <div class="col-xl-10 col-lg-12 col-md-11">
@@ -188,6 +207,35 @@
     background-image: linear-gradient(180deg, white 10%, #2faec0 100%);
     background-size: cover;
     font-family: "Poppins", sans-serif;
-    
+  }
+
+  .logo-text {
+    font-size: 16px;
+    color: #323b5d;
+    font-weight: bold;
+  }
+
+  .log-text {
+    font-size: 16px;
+    color: #2faec0;
+    font-weight: bold;
+  }
+
+  .bg-header {
+    background: #f9f9fd;
+  }
+
+  .navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+
+  .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 </style>
