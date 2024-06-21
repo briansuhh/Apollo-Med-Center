@@ -69,12 +69,10 @@
       <span class="logo-text"> Apollo Medical Center</span>
     </a>
     <div class="d-flex">
-      <button class="btn log-text" on:click={() => goto(`/login`)}>Login</button
-      >
+      <button class="btn log-text" href="/login" on:click={showLogin}>Login</button>
       <div class="vr"></div>
-      <button class="btn log-text" on:click={() => goto(`/login`)}
-        >Register</button
-      >
+      <button class="btn log-text" href="/login" on:click={showRegister}
+        >Register</button>
     </div>
   </div>
 </nav>
