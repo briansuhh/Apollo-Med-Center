@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="mainpage.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="static/images/logo.png" alt="Appollo Med Logo">
+                <h1>Apollo Medical Center</h1>
+            </div>
+            <nav class="navigation">
+                <span class="separator">GENERAL</span>
+                
+                <a style = "color: #333;" href="mainpage.html"><i class="fa-solid fa-house icon" style = "color: #333;"></i>Dashboard</a>
+                <a href="profile.html"><i class="fa-solid fa-id-card-clip icon"></i>Profile</a> <!-- Updated link -->
+                <a href="application-form.html"><i class="fa-solid fa-window-restore icon" style = "padding-right: 2px;"></i>Application Form</a>
+                <a href="about-us.html"><i class="fa-solid fa-address-card icon"></i>About Us</a>
+                <span class="separator">SUPPORT</span>
+                <a href="settings.html"><i class="fa-solid fa-gear icon"></i>Settings</a>
+                <a href="logout.html" class="logout"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header>
+                <input type="text" placeholder="Search">
+                <button><i class="fa-solid fa-magnifying-glass buttonIcon"></i></button>
+                <h3 class="user"><i class="fa-solid fa-user-tie icon"></i></i>Brian Sebastian</h3>
+            </header>
+            <section class="dashboard">
+                <h1>Dashboard</h1>
+                <div class="progress-tracker">
+                    <div class="step completed">
+                        <span>100%</span>
+                        <p>Profile Completion</p>
+                    </div>
+                    <div class="step completed">
+                        <span>100%</span>
+                        <p>Application Completion</p>
+                    </div>
+                    <div class="step completed">
+                        <span>100%</span>
+                        <p>Application Confirmation</p>
+                    </div>
+                    <div class="step">
+                        <span>0%</span>
+                        <p>Interview Schedule</p>
+                    </div>
+                    <div class="step">
+                        <span>0%</span>
+                        <p>Interview Result</p>
+                    </div>
+                </div>
+                <p>Your application is currently being reviewed by our HR team. This process typically takes 1-2 weeks.</p>
+                <div class="interview-schedule">
+                    <h2>Interview Schedule</h2>
+                    <table>
+                        <tr>
+                            <th>Date</th>
+                            <th>8:00</th>
+                            <th>9:00</th>
+                            <th>10:00</th>
+                            <th>11:00</th>
+                            <th>12:00</th>
+                            <th>13:00</th>
+                        </tr>
+                        <tr>
+                            <td>Mon</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Tue</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Wed</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Thu</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            <aside class="notifications">
+                <h2>Notifications</h2>
+                <div class="notification"></div>
+                <div class="notification"></div>
+                <div class="notification"></div>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>
