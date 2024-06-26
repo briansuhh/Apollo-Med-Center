@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { generateToken } from '$lib/auth';
 import pool from '$lib/db';
 
 export async function POST({ request }) {
@@ -15,7 +16,13 @@ export async function POST({ request }) {
 
         const user = rows[0];
         if (user && bcrypt.compareSync(password, user.password)) {
-            return new Response(JSON.stringify({ message: 'Login successful', user }), { status: 200 });
+            const token = generateToken({ user });
+            return new Response(JSON.stringify({ message: 'Login successful' }), {
+                status: 200,
+                headers: {
+                'Set-Cookie': `token=${token}; Path=/; HttpOnly`
+                }
+            });
         } else {
             return new Response(JSON.stringify({ error: 'Invalid email or password' }), { status: 401 });
         }

@@ -1,7 +1,31 @@
+<script>
+  import { onMount } from 'svelte';
+
+  let fullName = '';
+
+  onMount(async () => {
+    const response = await fetch('/api/readlogin', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      fullName = data.user.name;
+    } else {
+      console.error('Failed to retrieve user information');
+    }
+  });
+
+</script>
+
 <header>
     <input type="text" placeholder="Search">
     <button><i class="fa-solid fa-magnifying-glass buttonIcon"></i></button>
-    <h3 class="user"><i class="fa-solid fa-user-tie icon"></i>Brian Sebastian</h3>
+    <h3 class="user"><i class="fa-solid fa-user-tie icon"></i>{fullName}</h3>
   </header>
 
 <style>

@@ -23,13 +23,12 @@
       });
 
       if (response.ok) {
-        const data = await response.json();
-        // Store user data/token and navigate to the form application
-        localStorage.setItem('user', JSON.stringify(data.user));
-        goto('/applicationform');
-      } else {
-        console.error('Login failed');
-      }
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
+          goto('/main');
+        } else {
+          console.error('Login failed');
+        }
     } catch (error) {
       console.error('Error logging in:', error);
     }
