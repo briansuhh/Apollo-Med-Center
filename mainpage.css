@@ -1,0 +1,255 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 20%;
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+    text-align: center;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.sidebar .logo h1 {
+    font-size: 18px;
+    margin: 10px 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.sidebar .navigation {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation .separator {
+    color: #a3aecd;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;  
+    font-size: 13px;
+    padding-bottom: 10px;
+    padding-top: 30px;
+    padding-left: 15px;
+}
+
+.icon {
+    font-size: 18px;
+    color: #6e7ba2;
+    margin-right: 15px; /* Space between icon and text */
+}
+
+.sidebar .navigation a {
+    text-decoration: none;
+    color: #6e7ba2;
+    padding: 10px 0;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    padding-left: 40px;
+    transition: background 0.5s;
+}
+
+.sidebar .navigation a:hover,
+.sidebar .navigation a:hover .icon
+ {
+    color: #333;
+}
+
+.sidebar .navigation a:active,
+.sidebar .navigation a:active .icon
+ {
+    color: #314fa8;
+}
+.main-content {
+    width: 80%;
+    
+}
+
+.main-content header {
+    display: flex;
+    align-items: center;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    position: sticky;
+    top: 0;
+}
+
+.main-content .user {
+    padding-right: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px;
+    margin-left: auto;
+}
+
+.main-content .icon {
+    padding-right: 5px;
+    color: #333;
+    font-size: 20px;
+}
+
+.main-content button {
+    background-color: #13102d;
+    border: none;
+    border-radius: 0px 15px 15px 0px;
+    padding: 9.5px 15px;
+    margin: 0;
+    margin-left: 5px;
+}
+
+.main-content .buttonIcon {
+    color: #fff;
+    font-size: 15px;
+}
+
+.main-content header input[type="text"] {
+    width: 30%;
+    padding: 5px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    border: 2px solid #ccc;
+    border-radius: 15px 0 0 15px;
+    margin-left: 20px;
+    background-color: #f3f5ff;
+}
+
+.main-content .dashboard {
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.main-content h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+
+}
+
+.main-content h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+
+}
+
+.main-content p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.progress-tracker {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.progress-tracker .step {
+    text-align: center;
+    flex: 1;
+}
+
+.progress-tracker .step span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.progress-tracker .step p {
+    font-size: 14px;
+}
+
+.progress-tracker .step.completed span {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #314fa8;
+
+}
+
+.interview-schedule {
+    margin-top: 20px;
+}
+
+.interview-schedule h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.interview-schedule table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.interview-schedule th {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.interview-schedule td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.notifications {
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.notifications h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.notifications .notification {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

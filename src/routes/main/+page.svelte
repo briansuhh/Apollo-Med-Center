@@ -1,5 +1,6 @@
 <script>
     import ApplicationForm from '../../components/ApplicationForm.svelte';
+    import Profile from '../../components/Profile.svelte'
     import Sidebar from '../../components/Sidebar.svelte';
     import Dashboard from '../../components/Dashboard.svelte';
     import { pagename } from '../../store/store.js'; 
@@ -12,6 +13,8 @@
         <Dashboard />
       {:else if $pagename === "Application Form"}
         <ApplicationForm />
+      {:else if $pagename === "Profile"}
+        <Profile />  
       {/if}
 
 

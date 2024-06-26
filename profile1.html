@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="profile1.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="logo.png" alt="Apollo Medical Center">
+            </div>
+            <div class="menu">
+                <a href="#">Dashboard</a>
+                <a href="#">Profile</a>
+                <a href="#">Application Form</a>
+                <a href="#">About Us</a>
+                <a href="#">Settings</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+        <div class="main-content">
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <button>🔍</button>
+                </div>
+                <div class="logo">
+                    <img src="header-logo.png" alt="Apollo Medical Center">
+                </div>
+            </header>
+            <div class="profile-section">
+                <h1>Profile</h1>
+                <div class="profile-header">
+                    <div class="profile-picture">
+                        <img src="profile-pic.png" alt="Profile Picture">
+                    </div>
+                    <div class="profile-name">
+                        <h2>Brian Sebastian</h2>
+                        <a href="#">Change Profile</a>
+                    </div>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label>Appearance</label>
+                        <hr>
+                        <div class="input-group two-column">
+                            <div class="column">
+                                <label for="first-name">First Name</label>
+                                <input id="first-name" type="text" placeholder="First Name">
+                            </div>
+                            <div class="column">
+                                <label for="last-name">Last Name</label>
+                                <input id="last-name" type="text" placeholder="Last Name">
+                            </div>
+                            <div class="column">
+                                <label for="middle-name">Middle Name</label>
+                                <input id="middle-name" type="text" placeholder="Middle Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contacts</label>
+                        <hr>
+                        <div class="input-group two-column">
+                            <div class="column">
+                                <label for="email">Email Address</label>
+                                <input id="email" type="email" placeholder="Email Address">
+                            </div>
+                            <div class="column">
+                                <label for="phone-number">Phone Number</label>
+                                <input id="phone-number" type="text" placeholder="Phone Number">
+                            </div>
+                            <div class="column">
+                                <label for="telephone-number">Telephone Number</label>
+                                <input id="telephone-number" type="text" placeholder="Telephone Number">
+                            </div>
+                        </div>
+                        <label for="home-address">Home Address</label>
+                        <input id="home-address" type="text" placeholder="Home Address">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="submit" class="update">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <link rel="stylesheet" href="profile.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="static/images/logo.png" alt="Appollo Med Logo">
+                <h1>Apollo Medical Center</h1>
+            </div>
+            <nav class="navigation">
+                <span class="separator">GENERAL</span>
+                
+                <a href="mainpage.html"><i class="fa-solid fa-house icon"></i>Dashboard</a>
+                <a style = "color: #333;" href="profile.html"><i class="fa-solid fa-id-card-clip icon" style = "color: #333;"></i>Profile</a> <!-- Updated link -->
+                <a href="application-form.html"><i class="fa-solid fa-window-restore icon" style = "padding-right: 2px;"></i>Application Form</a>
+                <a href="about-us.html"><i class="fa-solid fa-address-card icon"></i>About Us</a>
+                <span class="separator">SUPPORT</span>
+                <a href="settings.html"><i class="fa-solid fa-gear icon"></i>Settings</a>
+                <a href="logout.html" class="logout"><i class="fa-solid fa-right-from-bracket icon"></i>Logout</a>
+            </nav>
+        </aside>
+        <div class="form-container">
+            <div class="search-header">
+                <header>
+                <input type="text" placeholder="Search">
+                <button><i class="fa-solid fa-magnifying-glass buttonIcon"></i></button>
+                <h3 class="user"><i class="fa-solid fa-user-tie icon"></i></i>Brian Sebastian</h3>
+            </header>
+            </div>
+            <form class="medical-form">
+                <fieldset>
+                    <legend>PERSONAL INFORMATION</legend>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age">
+                        <label for="birthdate">Birthdate</label>
+                        <input type="date" id="birthdate">
+                        <label for="birthplace">Birthplace</label>
+                        <input type="text" id="birthplace">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <input type="text" id="gender">
+                        <label for="civilStatus">Civil Status</label>
+                        <input type="text" id="civilStatus">
+                        <label for="citizenship">Citizenship</label>
+                        <input type="text" id="citizenship">
+                    </div>
+                    <div class="form-group">
+                        <label for="homeAddress">Home Address</label>
+                        <input type="text" id="homeAddress">
+                        <label for="telephoneNo">Telephone No.</label>
+                        <input type="tel" id="telephoneNo">
+                        <label for="cellphoneNo">Cellphone No.</label>
+                        <input type="tel" id="cellphoneNo">
+                    </div>
+                    <div class="form-group">
+                        <label for="insuranceIDType">Insurance ID Type</label>
+                        <input type="text" id="insuranceIDType">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email">
+                        <label for="tinNo">TIN No.</label>
+                        <input type="text" id="tinNo">
+                    </div>
+                    <div class="form-group">
+                        <label for="phicNo">Phic No.</label>
+                        <input type="text" id="phicNo">
+                        <label for="insuranceIDNo">Insurance ID No.</label>
+                        <input type="text" id="insuranceIDNo">
+                    </div>
+                    <div class="form-group">
+                        <label for="guardianName">Guardian Name</label>
+                        <input type="text" id="guardianName">
+                        <label for="guardianContactNo">Guardian Contact No.</label>
+                        <input type="tel" id="guardianContactNo">
+                        <label for="guardianOccupation">Guardian Occupation</label>
+                        <input type="text" id="guardianOccupation">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>EDUCATIONAL BACKGROUND</legend>
+                    <div class="form-group">
+                        <label for="collegeAttended">College Attended</label>
+                        <input type="text" id="collegeAttended">
+                        <label for="degree">Degree</label>
+                        <input type="text" id="degree">
+                        <label for="yearGraduated">Year Graduated</label>
+                        <input type="number" id="yearGraduated">
+                    </div>
+                    <div class="form-group">
+                        <label for="medicalSchool">Medical School Attended</label>
+                        <input type="text" id="medicalSchool">
+                        <label for="medYearGraduated">Year Graduated</label>
+                        <input type="number" id="medYearGraduated">
+                    </div>
+                    <div class="form-group">
+                        <label for="internshipInstitution">Internship Institution</label>
+                        <input type="text" id="internshipInstitution">
+                        <label for="internYearGraduated">Year Graduated</label>
+                        <input type="number" id="internYearGraduated">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>RESIDENCY INFORMATION</legend>
+                    <div class="form-group">
+                        <label for="departmentSpecialty">Department Specialty</label>
+                        <input type="text" id="departmentSpecialty">
+                        <label for="hospital">Hospital</label>
+                        <input type="text" id="hospital">
+                        <label for="residencyDuration">Duration</label>
+                        <input type="text" id="residencyDuration">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>POST RESIDENCY INFORMATION</legend>
+                    <div class="form-group">
+                        <label for="postResidencySpecialty">Post Residency Specialty</label>
+                        <input type="text" id="postResidencySpecialty">
+                        <label for="postResidencyInstitution">Post Residency Institution</label>
+                        <input type="text" id="postResidencyInstitution">
+                        <label for="postResidencyDuration">Post Residency Duration</label>
+                        <input type="text" id="postResidencyDuration">
+                    </div>
+                </fieldset>
+                <div class="form-buttons">
+
+                    <button type="submit" id="submitButton">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
