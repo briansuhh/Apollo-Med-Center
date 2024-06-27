@@ -4,7 +4,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'infomag'
+    database: 'apollomedcenter',
 });
 
 export default pool;

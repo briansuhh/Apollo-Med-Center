@@ -19,7 +19,6 @@
       console.error('Failed to retrieve user information');
     }
   });
-
 </script>
 
 <header>

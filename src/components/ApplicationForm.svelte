@@ -1,5 +1,99 @@
 <script>
     import Topbar from "./Topbar.svelte";
+    import { onMount } from 'svelte';
+
+    let applicant = {
+        fullName: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        age: '',
+        gender: '',
+        civilStatus: '',
+        birthDate: '',
+        birthPlace: '',
+        citizenship: '',
+        homeAddress: '',
+        telephoneNo: '',
+        cellphoneNo: '',
+        emailAddress: '',
+        tinNo: '',
+        insuranceIDType: '',
+        insuranceIDNo: '',
+        phicNo: '',
+        guardianName: '',
+        guardianOccupation: '',
+        guardianContactNo: '',
+        collegeAttended: '',
+        degree: '',
+        yearGraduated: '',
+        medSchoolAttended: '',
+        medSchoolGradYear: '',
+        internshipInstitution: '',
+        internshipGradYear: '',
+        departmentSpecialty: '',
+        hospital: '',
+        residencyDuration: '',
+        postResSpecialty: '',
+        postResInstitution: '',
+        postResDuration: ''
+    };
+
+    onMount(async () => {
+        const response = await fetch('/api/readapplicantinfo', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            applicant.fullName = data.user.fullName;      
+            applicant.age = data.user.age;
+            applicant.gender = data.user.gender;
+            applicant.civilStatus = data.user.civilStatus;
+            applicant.birthDate = data.user.birthDate;
+            applicant.birthPlace = data.user.birthPlace;
+            applicant.citizenship = data.user.citizenship;
+            applicant.homeAddress = data.user.homeAddress;
+            applicant.telephoneNo = data.user.telephoneNo;
+            applicant.cellphoneNo = data.user.cellphoneNo;
+            applicant.emailAddress = data.user.emailAddress;
+            applicant.tinNo = data.user.tinNo;
+            applicant.insuranceIDType = data.user.insuranceIDType;
+            applicant.insuranceIDNo = data.user.insuranceIDNo;
+            applicant.phicNo = data.user.phicNo;
+            applicant.guardianName = data.user.guardianName;
+            applicant.guardianOccupation = data.user.guardianOccupation;
+            applicant.guardianContactNo = data.user.guardianContactNo;
+            applicant.collegeAttended = data.user.collegeAttended;
+            applicant.degree = data.user.degree;
+            applicant.yearGraduated = data.user.yearGraduated;
+            applicant.medSchoolAttended = data.user.medSchoolAttended;
+            applicant.medSchoolGradYear = data.user.medSchoolGradYear;
+            applicant.internshipInstitution = data.user.internshipInstitution;
+            applicant.internshipGradYear = data.user.internshipGradYear;
+            applicant.departmentSpecialty = data.user.departmentSpecialty;
+            applicant.hospital = data.user.hospital;
+            applicant.residencyDuration = data.user.residencyDuration;
+            applicant.postResSpecialty = data.user.postResSpecialty;
+            applicant.postResInstitution = data.user.postResInstitution;
+            applicant.postResDuration = data.user.postResDuration;
+
+            splitFullName();
+        } else {
+            console.error('Failed to retrieve user information');
+        }
+    });
+
+    const splitFullName = () => {
+        const [firstName, middleName, lastName] = applicant.fullName.split(' ');
+        applicant.firstName = firstName;
+        applicant.middleName = middleName;
+        applicant.lastName = lastName;
+    }
 </script>
 
 <div class="form-container">
@@ -9,102 +103,102 @@
             <legend>PERSONAL INFORMATION</legend>
             <div class="form-group">
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName">
+                <input type="text" id="firstName" bind:value={applicant.firstName}>
                 <label for="middleName">Middle Name</label>
-                <input type="text" id="middleName">
+                <input type="text" id="middleName" bind:value={applicant.middleName}>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" bind:value={applicant.lastName}>
             </div>
             <div class="form-group">
                 <label for="age">Age</label>
-                <input type="number" id="age">
+                <input type="number" id="age" bind:value={applicant.age}>
                 <label for="birthdate">Birthdate</label>
-                <input type="date" id="birthdate">
+                <input type="date" id="birthdate" bind:value={applicant.birthDate}>
                 <label for="birthplace">Birthplace</label>
-                <input type="text" id="birthplace">
+                <input type="text" id="birthplace" bind:value={applicant.birthPlace}>
             </div>
             <div class="form-group">
                 <label for="gender">Gender</label>
-                <input type="text" id="gender">
+                <input type="text" id="gender" bind:value={applicant.gender}>
                 <label for="civilStatus">Civil Status</label>
-                <input type="text" id="civilStatus">
+                <input type="text" id="civilStatus" bind:value={applicant.civilStatus}>
                 <label for="citizenship">Citizenship</label>
-                <input type="text" id="citizenship">
+                <input type="text" id="citizenship" bind:value={applicant.citizenship}>
             </div>
             <div class="form-group">
                 <label for="homeAddress">Home Address</label>
-                <input type="text" id="homeAddress">
+                <input type="text" id="homeAddress" bind:value={applicant.homeAddress}>
                 <label for="telephoneNo">Telephone No.</label>
-                <input type="tel" id="telephoneNo">
+                <input type="tel" id="telephoneNo" bind:value={applicant.telephoneNo}>
                 <label for="cellphoneNo">Cellphone No.</label>
-                <input type="tel" id="cellphoneNo">
+                <input type="tel" id="cellphoneNo" bind:value={applicant.cellphoneNo}>
             </div>
             <div class="form-group">
                 <label for="insuranceIDType">Insurance ID Type</label>
-                <input type="text" id="insuranceIDType">
+                <input type="text" id="insuranceIDType" bind:value={applicant.insuranceIDType}>
                 <label for="email">Email Address</label>
-                <input type="email" id="email">
+                <input type="email" id="email" bind:value={applicant.emailAddress}>
                 <label for="tinNo">TIN No.</label>
-                <input type="text" id="tinNo">
+                <input type="text" id="tinNo" bind:value={applicant.tinNo}>
             </div>
             <div class="form-group">
                 <label for="phicNo">Phic No.</label>
-                <input type="text" id="phicNo">
+                <input type="text" id="phicNo" bind:value={applicant.phicNo}>
                 <label for="insuranceIDNo">Insurance ID No.</label>
-                <input type="text" id="insuranceIDNo">
+                <input type="text" id="insuranceIDNo" bind:value={applicant.insuranceIDNo}>
             </div>
             <div class="form-group">
                 <label for="guardianName">Guardian Name</label>
-                <input type="text" id="guardianName">
+                <input type="text" id="guardianName" bind:value={applicant.guardianName}>
                 <label for="guardianContactNo">Guardian Contact No.</label>
-                <input type="tel" id="guardianContactNo">
+                <input type="tel" id="guardianContactNo" bind:value={applicant.guardianContactNo}>
                 <label for="guardianOccupation">Guardian Occupation</label>
-                <input type="text" id="guardianOccupation">
+                <input type="text" id="guardianOccupation" bind:value={applicant.guardianOccupation}>
             </div>
         </fieldset>
         <fieldset>
             <legend>EDUCATIONAL BACKGROUND</legend>
             <div class="form-group">
                 <label for="collegeAttended">College Attended</label>
-                <input type="text" id="collegeAttended">
+                <input type="text" id="collegeAttended" bind:value={applicant.collegeAttended}>
                 <label for="degree">Degree</label>
-                <input type="text" id="degree">
+                <input type="text" id="degree" bind:value={applicant.degree}>
                 <label for="yearGraduated">Year Graduated</label>
-                <input type="number" id="yearGraduated">
+                <input type="number" id="yearGraduated" bind:value={applicant.yearGraduated}>
             </div>
             <div class="form-group">
                 <label for="medicalSchool">Medical School Attended</label>
-                <input type="text" id="medicalSchool">
+                <input type="text" id="medicalSchool" bind:value={applicant.medSchoolAttended}>
                 <label for="medYearGraduated">Year Graduated</label>
-                <input type="number" id="medYearGraduated">
+                <input type="number" id="medYearGraduated" bind:value={applicant.medSchoolGradYear}>
             </div>
             <div class="form-group">
                 <label for="internshipInstitution">Internship Institution</label>
-                <input type="text" id="internshipInstitution">
+                <input type="text" id="internshipInstitution" bind:value={applicant.internshipInstitution}>
                 <label for="internYearGraduated">Year Graduated</label>
-                <input type="number" id="internYearGraduated">
+                <input type="number" id="internYearGraduated" bind:value={applicant.internshipGradYear}>
             </div>
         </fieldset>
         <fieldset>
             <legend>RESIDENCY INFORMATION</legend>
             <div class="form-group">
                 <label for="departmentSpecialty">Department Specialty</label>
-                <input type="text" id="departmentSpecialty">
+                <input type="text" id="departmentSpecialty" bind:value={applicant.departmentSpecialty}>
                 <label for="hospital">Hospital</label>
-                <input type="text" id="hospital">
+                <input type="text" id="hospital" bind:value={applicant.hospital}>
                 <label for="residencyDuration">Duration</label>
-                <input type="text" id="residencyDuration">
+                <input type="text" id="residencyDuration" bind:value={applicant.residencyDuration}>
             </div>
         </fieldset>
         <fieldset>
             <legend>POST RESIDENCY INFORMATION</legend>
             <div class="form-group">
                 <label for="postResidencySpecialty">Post Residency Specialty</label>
-                <input type="text" id="postResidencySpecialty">
+                <input type="text" id="postResidencySpecialty" bind:value={applicant.postResSpecialty}>
                 <label for="postResidencyInstitution">Post Residency Institution</label>
-                <input type="text" id="postResidencyInstitution">
+                <input type="text" id="postResidencyInstitution" bind:value={applicant.postResInstitution}>
                 <label for="postResidencyDuration">Post Residency Duration</label>
-                <input type="text" id="postResidencyDuration">
+                <input type="text" id="postResidencyDuration" bind:value={applicant.postResDuration}>
             </div>
         </fieldset>
         <div class="form-buttons">
