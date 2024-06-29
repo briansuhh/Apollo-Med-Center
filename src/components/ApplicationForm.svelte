@@ -50,11 +50,12 @@
 
         if (response.ok) {
             const data = await response.json();
-            applicant.fullName = data.user.fullName;      
+            applicant.fullName = data.user.fullName;
+            splitFullName();
             applicant.age = data.user.age;
             applicant.gender = data.user.gender;
             applicant.civilStatus = data.user.civilStatus;
-            applicant.birthDate = data.user.birthDate;
+            applicant.birthDate = formatDate(data.user.birthDate);
             applicant.birthPlace = data.user.birthPlace;
             applicant.citizenship = data.user.citizenship;
             applicant.homeAddress = data.user.homeAddress;
@@ -81,18 +82,48 @@
             applicant.postResSpecialty = data.user.postResSpecialty;
             applicant.postResInstitution = data.user.postResInstitution;
             applicant.postResDuration = data.user.postResDuration;
-
-            splitFullName();
         } else {
             console.error('Failed to retrieve user information');
         }
     });
+
 
     const splitFullName = () => {
         const [firstName, middleName, lastName] = applicant.fullName.split(' ');
         applicant.firstName = firstName;
         applicant.middleName = middleName;
         applicant.lastName = lastName;
+    }
+
+    const formatDate = (dateParam) => {
+        return dateParam.split('T')[0];
+    }
+
+    // chamge the full name when first name, middle name, or last name changes
+    $: applicant.fullName = `${applicant.firstName} ${applicant.middleName} ${applicant.lastName}`.trim();
+
+    async function submitForm() {
+        console.log(applicant);
+        try {
+            const response = await fetch('/api/submitappinfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(applicant)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert('Application form registration successful');
+            } else {
+                const error = await response.json();
+                alert(`Application form registration failed: ${error.message}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration');
+        }
     }
 </script>
 
@@ -202,8 +233,7 @@
             </div>
         </fieldset>
         <div class="form-buttons">
-            
-            <button type="submit" id="submitButton">Submit</button>
+            <button type="submit" id="submitButton" on:click={submitForm}>Submit</button>
         </div>
     </form>
 </div>

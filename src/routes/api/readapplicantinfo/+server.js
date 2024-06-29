@@ -14,7 +14,7 @@ export async function GET({ request }) {
 
         const connection = await pool.getConnection();
         const [rows] = await connection.execute(
-            'SELECT * FROM applicant as a, residency as r, postresidency as pr WHERE a.applicantID = r.applicantID AND a.applicantID = pr.applicantID AND userID = ?',
+            'SELECT * FROM applicant as a, residency as r, postresidency as pr WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID AND userID = ?',
             [userId]
         );
         connection.release();
@@ -22,7 +22,6 @@ export async function GET({ request }) {
         const user = rows[0];
         if (user) {
             return new Response(JSON.stringify({ user }), { status: 200 });
-            console.log(user);
         } else {
             return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
         }

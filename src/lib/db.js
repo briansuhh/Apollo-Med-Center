@@ -5,6 +5,7 @@ const pool = mysql.createPool({
     user: 'root',
     password: 'password',
     database: 'apollomedcenter',
+    timezone: '+00:00',
 });
 
 export default pool;

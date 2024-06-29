@@ -121,9 +121,6 @@ END$$
 DELIMITER ;
 
 
--- Don't run this query
--- DROP TABLE applicant, postresidency, residency;
--- drop table applicant;
 
 -- Insert data into the `applicant` table
 INSERT INTO applicant (applicantID, userID, fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, 
@@ -153,8 +150,10 @@ VALUES ('RS-A-1', '2024-CMC-1', 'Cardiology', 'St. Luke''s Medical Center', '4 y
 INSERT INTO postresidency (postResCode, applicantID, postResSpecialty, postResInstitution, postResDuration) 
 VALUES ('TC-A-1', '2024-CMC-1', 'Internal Medicine', 'Makati Medical Center', '2 years'),
        ('TC-A-2', '2024-CMC-2', 'MRI Technician', 'Makati Medical Center', '1 year'),
-       ('TC-A-3', '2024-CMC-2', 'Ultrasound Technician', 'Makati Medical Center', '6 months');
+       ('TC-A-3', '2024-CMC-3', 'Ultrasound Technician', 'Makati Medical Center', '6 months');
 
+  
+  
   
 -- More specific way of showing a record
 SELECT * FROM applicant 
@@ -175,7 +174,7 @@ CREATE TABLE `admins` (
 -- To read the application record of the first user
 SELECT *
 FROM applicant as a, residency as r, postresidency as pr
-WHERE a.applicantID = r.applicantID AND userID = 1;
+WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID AND userID = 1;
 
 
 
