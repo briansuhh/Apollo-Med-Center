@@ -141,16 +141,16 @@ VALUES ('2024-CMC-1', 1, 'Alberto Esteban Sebastian', 42, 'M', 'S', '1982-01-06'
         'University of the Philippines', '2014', 'Manila General Hospital', '2015');
 
 -- Insert data into the `residency` table
-INSERT INTO residency (residencyCode, applicantID, departmentSpecialty, hospital, residencyDuration)
-VALUES ('RS-A-1', '2024-CMC-1', 'Cardiology', 'St. Luke''s Medical Center', '4 years'),
-       ('RS-A-2', '2024-CMC-2', 'Radiologic Technology', 'St. Clare''s Medical Center, Inc.', '1 year'),
-       ('RS-A-3', '2024-CMC-3', 'Pediatrics', 'Rizal Medical Center', '3 years');
+INSERT INTO residency (applicantID, departmentSpecialty, hospital, residencyDuration)
+VALUES ('2024-CMC-1', 'Cardiology', 'St. Luke''s Medical Center', '4 years'),
+       ('2024-CMC-2', 'Radiologic Technology', 'St. Clare''s Medical Center, Inc.', '1 year'),
+       ('2024-CMC-3', 'Pediatrics', 'Rizal Medical Center', '3 years');
 
 -- Insert data into the `postresidency` table
-INSERT INTO postresidency (postResCode, applicantID, postResSpecialty, postResInstitution, postResDuration) 
-VALUES ('TC-A-1', '2024-CMC-1', 'Internal Medicine', 'Makati Medical Center', '2 years'),
-       ('TC-A-2', '2024-CMC-2', 'MRI Technician', 'Makati Medical Center', '1 year'),
-       ('TC-A-3', '2024-CMC-3', 'Ultrasound Technician', 'Makati Medical Center', '6 months');
+INSERT INTO postresidency (applicantID, postResSpecialty, postResInstitution, postResDuration) 
+VALUES ('2024-CMC-1', 'Internal Medicine', 'Makati Medical Center', '2 years'),
+       ('2024-CMC-2', 'MRI Technician', 'Makati Medical Center', '1 year'),
+       ('2024-CMC-3', 'Ultrasound Technician', 'Makati Medical Center', '6 months');
 
   
   
@@ -174,7 +174,7 @@ CREATE TABLE `admins` (
 -- To read the application record of the first user
 SELECT *
 FROM applicant as a, residency as r, postresidency as pr
-WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID AND userID = 1;
+WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID AND userID = 18;
 
 
 
