@@ -1,5 +1,5 @@
 <script>
-    import { pagename } from '../store/store.js'; // Adjust the path as necessary
+    import { pagename } from '../store/page.js'; // Adjust the path as necessary
     import { goto } from '$app/navigation';
 
     function showDashboard() {
