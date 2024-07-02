@@ -64,7 +64,7 @@
   button {
     background-color: #13102d;
     border: none;
-    border-radius: 0px 15px 15px 0px;
+    border-radius: 20px;
     padding: 9.5px 15px;
     margin: 0;
     margin-left: 5px;
@@ -83,10 +83,9 @@
     font-style: normal;
     font-size: 15px;
     border: 2px solid #ccc;
-    border-radius: 15px 0 0 15px;
+    border-radius: 15px;
     margin-left: 20px;
     background-color: #f3f5ff;
   }
-
 
 </style>

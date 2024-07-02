@@ -3,7 +3,7 @@
     import Profile from '../../components/Profile.svelte'
     import Sidebar from '../../components/Sidebar.svelte';
     import Dashboard from '../../components/Dashboard.svelte';
-    import { pagename } from '../../store/store.js'; 
+    import { pagename } from '../../store/page.js'; 
   </script>
   
   <div class="mainbox">

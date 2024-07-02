@@ -1,0 +1,44 @@
+async function submitForm() {
+    try {
+        const response = await fetch('/api/submitappinfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(applicant)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert('Application form registration successful');
+        } else {
+            const error = await response.json();
+            alert(`Application form registration failed: ${error.message}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred during registration');
+    }
+}
+
+
+onMount(async () => {
+    try {
+        const response = await fetch('/api/readapplicantinfo', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            applicant = data.user;
+        } else {
+            console.error('Failed to retrieve user information');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
