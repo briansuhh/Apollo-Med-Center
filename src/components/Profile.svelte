@@ -1,5 +1,25 @@
 <script>
     import Topbar from "./Topbar.svelte";
+    import { onMount } from 'svelte';
+
+  let fullName = '';
+
+  onMount(async () => {
+    const response = await fetch('/api/readlogin', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      fullName = data.user.name;
+    } else {
+      console.error('Failed to retrieve user information');
+    }
+  });
 </script>
 
 <main class="main-content">
@@ -9,16 +29,16 @@
     <h1>Profile</h1>
     <div class="profile-header">
         <div class="profile-picture">
-            <img src="profile-pic.png" alt="Profile Picture">
+            <img src="images/logo.png" alt="Profile Pic">
         </div>
         <div class="profile-name">
-            <h2>Brian Sebastian</h2>
-            <a href="#">Change Profile</a>
+            <h2>{fullName}</h2>
+            <a href="/">Change Profile</a>
         </div>
     </div>
     <form>
         <div class="form-group">
-            <label>Appearance</label>
+            <label for="apearance">Appearance</label>
             <hr>
             <div class="input-group two-column">
                 <div class="column">
@@ -36,7 +56,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Contacts</label>
+            <label for="contact">Contacts</label>
             <hr>
             <div class="input-group two-column">
                 <div class="column">
@@ -65,13 +85,6 @@
 </main>
 
 <style>
-
-    body {
-        font-family: "Poppins", sans-serif;
-        margin: 0;
-        padding: 0;
-        
-    }
 
     .main-content {
         flex: 1;
