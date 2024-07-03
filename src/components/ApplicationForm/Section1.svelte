@@ -23,19 +23,6 @@
         guardianName: '',
         guardianOccupation: '',
         guardianContactNo: '',
-        collegeAttended: '',
-        degree: '',
-        yearGraduated: '',
-        medSchoolAttended: '',
-        medSchoolGradYear: '',
-        internshipInstitution: '',
-        internshipGradYear: '',
-        departmentSpecialty: '',
-        hospital: '',
-        residencyDuration: '',
-        postResSpecialty: '',
-        postResInstitution: '',
-        postResDuration: ''
     };
 
     onMount(async () => {

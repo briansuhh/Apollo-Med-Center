@@ -71,7 +71,7 @@
                     <label for="telephone-number">Telephone Number</label>
                     <input id="telephone-number" type="text" placeholder="Telephone Number">
                 </div>
-            </div>
+            <div class="column">
             <label for="home-address">Home Address</label>
             <input id="home-address" type="text" placeholder="Home Address">
         </div>
@@ -88,6 +88,7 @@
 
     .main-content {
         flex: 1;
+        overflow-y: auto;
     }
 
 
