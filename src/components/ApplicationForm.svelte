@@ -29,7 +29,7 @@
       display: flex;
       flex-direction: column;
       height: 100vh; /* Adjust as needed */
-      width: 100%;
+      width: 80%;
     }
   
     .sectionContent {
