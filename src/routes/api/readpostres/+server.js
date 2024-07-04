@@ -14,11 +14,12 @@ export async function GET({ request }) {
 
         const connection = await pool.getConnection();
         const [rows] = await connection.execute(
-            'SELECT * FROM postresidency'
+            'SELECT * FROM postresidency WHERE applicantID = (SELECT applicantID FROM applicant WHERE userID = ?)',
+            [userId]
         );
         connection.release();
 
-        const user = rows[0];
+        const user = rows;
         if (user) {
             return new Response(JSON.stringify({ user }), { status: 200 });
         } else {

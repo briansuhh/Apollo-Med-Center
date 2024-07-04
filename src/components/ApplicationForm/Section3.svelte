@@ -2,9 +2,6 @@
     import { onMount } from 'svelte';
 
     let applicant = {
-        departmentSpecialty: '',
-        hospital: '',
-        residencyDuration: '',
         departmentSpecialties: []
     };
 
@@ -24,18 +21,15 @@
     };
 
     const saveApplicantData = () => {
-    localStorage.setItem('applicantData', JSON.stringify(applicant));
+        localStorage.setItem('applicantData', JSON.stringify(applicant));
     };
 
     onMount(async () => {
-    const storedData = localStorage.getItem('applicantData');
-    if (storedData) {
-        applicant = JSON.parse(storedData);
-    }
-    });
+        const storedData = localStorage.getItem('applicantData');
+        if (storedData) {
+            applicant = JSON.parse(storedData);
+        }
 
-
-    onMount(async () => {
         const response = await fetch('/api/readresidency', {
             method: 'GET',
             headers: {
@@ -46,9 +40,14 @@
 
         if (response.ok) {
             const data = await response.json();
-            applicant.departmentSpecialty = data.user.departmentSpecialty;
-            applicant.hospital = data.user.hospital;
-            applicant.residencyDuration = data.user.residencyDuration;
+            if (data.user && Array.isArray(data.user)) {
+                applicant.departmentSpecialties = data.user.map((item, index) => ({
+                    id: nextId++,
+                    departmentSpecialty: item.departmentSpecialty,
+                    hospital: item.hospital,
+                    residencyDuration: item.residencyDuration
+                }));
+            }
         } else {
             console.error('Failed to retrieve user information');
         }
@@ -56,7 +55,7 @@
 
 </script>
 
-<div class= "formContainer">
+<div class="formContainer">
     <form>
         <fieldset>
             <legend>RESIDENCY INFORMATION</legend>
@@ -64,25 +63,15 @@
                 <button type="button" on:click={addDepartmentSpecialty}>+ Add Specialty</button>
             </div>
 
-            <div class="form-group">
-                <label for="departmentSpecialty">Department Specialty</label>
-                <input type="text" id="hospital" bind:value={applicant.departmentSpecialty}>
-                <label for="hospital">Hospital</label>
-                <input type="text" id="hospital" bind:value={applicant.hospital}>
-                <label for="residencyDuration">Duration</label>
-                <input type="text" id="residencyDuration" bind:value={applicant.residencyDuration}>
-            </div>
-
             {#each applicant.departmentSpecialties as specialty, index}
-                <div class="form-group" key={index}>
-                    <label for="departmentSpecialty">Department Specialty</label>
-                    <input type="text" id="hospital" bind:value={applicant.departmentSpecialties[index].departmentSpecialty}>
-                    <label for="hospital">Hospital</label>
-                    <input type="text" id="hospital_{index}" bind:value={applicant.departmentSpecialties[index].hospital}>
-                    <label for="residencyDuration">Duration</label>
-                    <input type="text" id="residencyDuration_{index}" bind:value={applicant.departmentSpecialties[index].residencyDuration}>
+                <div class="form-group" key={specialty.id}>
+                    <label for={`departmentSpecialty_${index}`}>Department Specialty</label>
+                    <input type="text" id={`departmentSpecialty_${index}`} bind:value={specialty.departmentSpecialty}>
+                    <label for={`hospital_${index}`}>Hospital</label>
+                    <input type="text" id={`hospital_${index}`} bind:value={specialty.hospital}>
+                    <label for={`residencyDuration_${index}`}>Duration</label>
+                    <input type="text" id={`residencyDuration_${index}`} bind:value={specialty.residencyDuration}>
                     <button class="delButton" type="button" on:click={() => deleteDepartmentSpecialty(index)}><i class="fa-solid fa-trash"></i></button>
-
                 </div>
             {/each}
 
@@ -167,6 +156,4 @@
         font-weight: 500;
         font-style: normal;
     }
-
-
 </style>

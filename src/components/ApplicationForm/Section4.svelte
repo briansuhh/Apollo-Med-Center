@@ -2,9 +2,6 @@
     import { onMount } from 'svelte';
 
     let applicantPost = {
-        postResSpecialty: '',
-        postResInstitution: '',
-        postResDuration: '',
         postDepartmentSpecialties: []
     };
 
@@ -32,9 +29,7 @@
         if (storedData) {
             applicantPost = JSON.parse(storedData);
         }
-    });
 
-    onMount(async () => {
         const response = await fetch('/api/readpostres', {
             method: 'GET',
             headers: {
@@ -45,17 +40,21 @@
 
         if (response.ok) {
             const data = await response.json();
-            applicantPost.postResSpecialty = data.user.postResSpecialty;
-            applicantPost.postResInstitution = data.user.postResInstitution;
-            applicantPost.postResDuration = data.user.postResDuration;
+            if (data.user && Array.isArray(data.user)) {
+                applicantPost.postDepartmentSpecialties = data.user.map(item => ({
+                    id: nextId++,
+                    postResSpecialty: item.postResSpecialty,
+                    postResInstitution: item.postResInstitution,
+                    postResDuration: item.postResDuration
+                }));
+            }
         } else {
             console.error('Failed to retrieve user information');
         }
     });
-    
 </script>
 
-<div class= "formContainer">
+<div class="formContainer">
     <form>
         <fieldset>
             <legend>POST RESIDENCY INFORMATION</legend>
@@ -63,29 +62,17 @@
                 <button type="button" on:click={addPostDepartmentSpecialty}>+ Add Specialty</button>
             </div>
 
-            <div class="form-group">
-                <label for="postResidencySpecialty">Post Residency Specialty</label>
-                <input type="text" id="postResidencySpecialty" bind:value={applicantPost.postResSpecialty}>
-                <label for="postResidencyInstitution">Post Residency Institution</label>
-                <input type="text" id="postResidencyInstitution" bind:value={applicantPost.postResInstitution}>
-                <label for="postResidencyDuration">Post Residency Duration</label>
-                <input type="text" id="postResidencyDuration" bind:value={applicantPost.postResDuration}>
-            </div>
-
             {#each applicantPost.postDepartmentSpecialties as specialty, index}
-                <div class="form-group" key={index}>
-                    <label for="postResSpecialty">Post Residency Specialty</label>
-                    <input type="text" id="postResSpecialty" bind:value={applicantPost.postDepartmentSpecialties[index].postResSpecialty}>
-                    <label for="postResInstitution">Post Residency Institution</label>
-                    <input type="text" id="postResInstitution" bind:value={applicantPost.postDepartmentSpecialties[index].postResInstitution}>
-                    <label for="postResDuration">Post Residency Duration</label>
-                    <input type="text" id="postResDuration" bind:value={applicantPost.postDepartmentSpecialties[index].postResDuration}>
-                    <button class="delButton" type="button" on:click={() => deletePostDepartmentSpecialty(index)}>
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                <div class="form-group" key={specialty.id}>
+                    <label for={`postResSpecialty_${index}`}>Post Residency Specialty</label>
+                    <input type="text" id={`postResSpecialty_${index}`} bind:value={specialty.postResSpecialty}>
+                    <label for={`postResInstitution_${index}`}>Post Residency Institution</label>
+                    <input type="text" id={`postResInstitution_${index}`} bind:value={specialty.postResInstitution}>
+                    <label for={`postResDuration_${index}`}>Post Residency Duration</label>
+                    <input type="text" id={`postResDuration_${index}`} bind:value={specialty.postResDuration}>
+                    <button class="delButton" type="button" on:click={() => deletePostDepartmentSpecialty(index)}><i class="fa-solid fa-trash"></i></button>
                 </div>
             {/each}
-
         </fieldset>
     </form>
 </div>
@@ -167,6 +154,4 @@
         font-weight: 500;
         font-style: normal;
     }
-
-
 </style>
