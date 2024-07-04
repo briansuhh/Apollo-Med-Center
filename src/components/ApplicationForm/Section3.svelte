@@ -36,7 +36,7 @@
 
 
     onMount(async () => {
-        const response = await fetch('/api/readapplicantinfo', {
+        const response = await fetch('/api/readresidency', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

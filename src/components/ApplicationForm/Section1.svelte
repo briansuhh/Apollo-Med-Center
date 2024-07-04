@@ -220,13 +220,11 @@
 
     onMount(async () => {
         try {
-            // Fetch applicant information
-            const response = await fetch('/api/readapplicantinfo', {
+            const response = await fetch('/api/readapplicants', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                credentials: 'include'
+                }
             });
 
             if (!response.ok) {
