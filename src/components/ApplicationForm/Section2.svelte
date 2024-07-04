@@ -25,6 +25,8 @@
             applicant.yearGraduated = data.user.yearGraduated;
             applicant.medSchoolAttended = data.user.medSchoolAttended;
             applicant.medSchoolGradYear = data.user.medSchoolGradYear;
+            applicant.internshipInstitution = data.user.internshipInstitution;
+            applicant.internshipGradYear = data.user.internshipGradYear;
         } else {
             console.error('Failed to retrieve user information');
         }

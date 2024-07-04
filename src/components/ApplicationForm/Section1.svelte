@@ -25,17 +25,217 @@
         guardianContactNo: '',
     };
 
-    onMount(async () => {
-        const response = await fetch('/api/readapplicantinfo', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        });
+    // lagay natin to sa 
+    let list = [
+        'Afghan',
+        'Albanian',
+        'Algerian',
+        'American',
+        'Andorran',
+        'Angolan',
+        'Antiguan',
+        'Argentine',
+        'Armenian',
+        'Australian',
+        'Austrian',
+        'Azerbaijani',
+        'Bahamian',
+        'Bahraini',
+        'Bangladeshi',
+        'Barbadian',
+        'Belarusian',
+        'Belgian',
+        'Belizean',
+        'Beninese',
+        'Bhutanese',
+        'Bolivian',
+        'Bosnian',
+        'Botswanan',
+        'Brazilian',
+        'Bruneian',
+        'Bulgarian',
+        'Burkinabe',
+        'Burundian',
+        'Cambodian',
+        'Cameroonian',
+        'Canadian',
+        'Cape Verdean',
+        'Central African',
+        'Chadian',
+        'Chilean',
+        'Chinese',
+        'Colombian',
+        'Comoran',
+        'Congolese',
+        'Costa Rican',
+        'Croatian',
+        'Cuban',
+        'Cypriot',
+        'Czech',
+        'Danish',
+        'Djiboutian',
+        'Dominican',
+        'Dutch',
+        'East Timorese',
+        'Ecuadorian',
+        'Egyptian',
+        'Emirati',
+        'English',
+        'Equatoguinean',
+        'Eritrean',
+        'Estonian',
+        'Ethiopian',
+        'Fijian',
+        'Filipino',
+        'Finnish',
+        'French',
+        'Gabonese',
+        'Gambian',
+        'Georgian',
+        'German',
+        'Ghanaian',
+        'Greek',
+        'Grenadian',
+        'Guatemalan',
+        'Guinean',
+        'Guyanese',
+        'Haitian',
+        'Honduran',
+        'Hungarian',
+        'Icelander',
+        'Indian',
+        'Indonesian',
+        'Iranian',
+        'Iraqi',
+        'Irish',
+        'Israeli',
+        'Italian',
+        'Ivorian',
+        'Jamaican',
+        'Japanese',
+        'Jordanian',
+        'Kazakhstani',
+        'Kenyan',
+        'Kittitian',
+        'Kosovar',
+        'Kuwaiti',
+        'Kyrgyzstani',
+        'Laotian',
+        'Latvian',
+        'Lebanese',
+        'Liberian',
+        'Libyan',
+        'Liechtensteiner',
+        'Lithuanian',
+        'Luxembourger',
+        'Malagasy',
+        'Malawian',
+        'Malaysian',
+        'Maldivian',
+        'Malian',
+        'Maltese',
+        'Marshallese',
+        'Mauritanian',
+        'Mauritian',
+        'Mexican',
+        'Micronesian',
+        'Moldovan',
+        'Monegasque',
+        'Mongolian',
+        'Montenegrin',
+        'Moroccan',
+        'Mozambican',
+        'Namibian',
+        'Nauruan',
+        'Nepali',
+        'New Zealander',
+        'Nicaraguan',
+        'Nigerien',
+        'Nigerian',
+        'Ni-Vanuatu',
+        'North Korean',
+        'North Macedonian',
+        'Norwegian',
+        'Omani',
+        'Pakistani',
+        'Palauan',
+        'Palestinian',
+        'Panamanian',
+        'Papua New Guinean',
+        'Paraguayan',
+        'Peruvian',
+        'Polish',
+        'Portuguese',
+        'Qatari',
+        'Rwandan',
+        'Saint Lucian',
+        'Salvadoran',
+        'Samoan',
+        'Sammarinese',
+        'Saudi',
+        'Scottish',
+        'Senegalese',
+        'Serbian',
+        'Seychellois',
+        'Sierra Leonean',
+        'Singaporean',
+        'Slovak',
+        'Slovenian',
+        'Solomon Islander',
+        'Somali',
+        'South African',
+        'South Korean',
+        'South Sudanese',
+        'Spanish',
+        'Sri Lankan',
+        'Sudanese',
+        'Surinamese',
+        'Swazi',
+        'Swedish',
+        'Swiss',
+        'Syrian',
+        'Taiwanese',
+        'Tajikistani',
+        'Tanzanian',
+        'Thai',
+        'Togolese',
+        'Tongan',
+        'Trinidadian',
+        'Tunisian',
+        'Turkish',
+        'Turkmen',
+        'Tuvaluan',
+        'Ugandan',
+        'Ukrainian',
+        'Uruguayan',
+        'Uzbekistani',
+        'Vatican',
+        'Venezuelan',
+        'Vietnamese',
+        'Welsh',
+        'Yemeni',
+        'Zambian',
+        'Zimbabwean',
+    ];
 
-        if (response.ok) {
+    onMount(async () => {
+        try {
+            // Fetch applicant information
+            const response = await fetch('/api/readapplicantinfo', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to retrieve user information');
+            }
+
             const data = await response.json();
+            console.log(data);
+
             applicant.fullName = data.user.fullName;
             splitFullName();
             applicant.age = data.user.age;
@@ -55,11 +255,10 @@
             applicant.guardianName = data.user.guardianName;
             applicant.guardianOccupation = data.user.guardianOccupation;
             applicant.guardianContactNo = data.user.guardianContactNo;
-        } else {
-            console.error('Failed to retrieve user information');
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
     });
-
 
     const splitFullName = () => {
         const [firstName, middleName, lastName] = applicant.fullName.split(' ');
@@ -72,12 +271,11 @@
         return dateParam.split('T')[0];
     }
 
-    // chamge the full name when first name, middle name, or last name changes
+    // Update the full name when first name, middle name, or last name changes
     $: applicant.fullName = `${applicant.firstName} ${applicant.middleName} ${applicant.lastName}`.trim();
-
 </script>
 
-<div class= "formContainer">
+<div class="formContainer">
     <form>
         <fieldset>
             <legend>PERSONAL INFORMATION</legend>
@@ -100,17 +298,26 @@
             <div class="form-group">
                 <label for="gender">Gender</label>
                 <select id="options" name="options" bind:value={applicant.gender}>
+                    <option value="" disabled selected>Select your gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
+                    <option value="O">Other</option>
                 </select>
                 <label for="civilStatus">Civil Status</label>
                 <select id="options2" name="options2" bind:value={applicant.civilStatus}>
+                    <option value="" disabled selected>Select your civil status</option>
                     <option value="S">Single</option>
-                    <option value="M">Married</option>\
+                    <option value="M">Married</option>
                     <option value="W">Widowed</option>
+                    <option value="D">Divorced</option>
                 </select>
                 <label for="citizenship">Citizenship</label>
-                <input type="text" id="citizenship" bind:value={applicant.citizenship}>
+                <select bind:value={applicant.citizenship}>
+                    <option value="" disabled selected>Select your citizenship</option>
+                    {#each list as item}
+                        <option value={item}>{item}</option>
+                    {/each}
+                </select>
             </div>
             <div class="form-group">
                 <label for="homeAddress">Home Address</label>
@@ -204,6 +411,4 @@
         font-weight: 500;
         font-style: normal;
     }
-
-
 </style>
