@@ -35,7 +35,9 @@ export async function POST({ request }) {
         residencyDuration,
         postResSpecialty,
         postResInstitution,
-        postResDuration
+        postResDuration,
+        departmentSpecialties = [],
+        postDepartmentSpecialties = []
     } = await request.json();
 
     if (!token) {
@@ -56,7 +58,6 @@ export async function POST({ request }) {
 
         let applicantID;
 
-        // if existing: update applicant table, else insert new record
         if (existingApplicant.length > 0) {
             applicantID = existingApplicant[0].applicantID;
             await connection.execute(
@@ -64,70 +65,28 @@ export async function POST({ request }) {
                     fullName = ?, age = ?, gender = ?, civilStatus = ?, birthDate = ?, birthPlace = ?, citizenship = ?, homeAddress = ?, telephoneNo = ?, cellphoneNo = ?, emailAddress = ?, tinNo = ?, insuranceIDType = ?, insuranceIDNo = ?, phicNo = ?, guardianName = ?, guardianOccupation = ?, guardianContactNo = ?, collegeAttended = ?, degree = ?, yearGraduated = ?, medSchoolAttended = ?, medSchoolGradYear = ?, internshipInstitution = ?, internshipGradYear = ?
                 WHERE applicantID = ?`,
                 [
-                    fullName,
-                    age,
-                    gender,
-                    civilStatus,
-                    birthDate,
-                    birthPlace,
-                    citizenship,
-                    homeAddress,
-                    telephoneNo,
-                    cellphoneNo,
-                    emailAddress,
-                    tinNo,
-                    insuranceIDType,
-                    insuranceIDNo,
-                    phicNo,
-                    guardianName,
-                    guardianOccupation,
-                    guardianContactNo,
-                    collegeAttended,
-                    degree,
-                    yearGraduated,
-                    medSchoolAttended,
-                    medSchoolGradYear,
-                    internshipInstitution,
-                    internshipGradYear,
-                    applicantID
+                    fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, homeAddress, telephoneNo,
+                    cellphoneNo, emailAddress, tinNo, insuranceIDType, insuranceIDNo, phicNo, guardianName,
+                    guardianOccupation, guardianContactNo, collegeAttended, degree, yearGraduated, medSchoolAttended,
+                    medSchoolGradYear, internshipInstitution, internshipGradYear, applicantID
                 ]
             );
         } else {
             const [applicantResults] = await connection.execute(
                 `INSERT INTO applicant (
-                    userID, fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, homeAddress, telephoneNo, cellphoneNo, emailAddress, tinNo, insuranceIDType, insuranceIDNo, phicNo, guardianName, guardianOccupation, guardianContactNo, collegeAttended, degree, yearGraduated, medSchoolAttended, medSchoolGradYear, internshipInstitution, internshipGradYear
+                    userID, fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, homeAddress, telephoneNo,
+                    cellphoneNo, emailAddress, tinNo, insuranceIDType, insuranceIDNo, phicNo, guardianName, guardianOccupation,
+                    guardianContactNo, collegeAttended, degree, yearGraduated, medSchoolAttended, medSchoolGradYear,
+                    internshipInstitution, internshipGradYear
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                 [
-                    userId,
-                    fullName,
-                    age,
-                    gender,
-                    civilStatus,
-                    birthDate,
-                    birthPlace,
-                    citizenship,
-                    homeAddress,
-                    telephoneNo,
-                    cellphoneNo,
-                    emailAddress,
-                    tinNo,
-                    insuranceIDType,
-                    insuranceIDNo,
-                    phicNo,
-                    guardianName,
-                    guardianOccupation,
-                    guardianContactNo,
-                    collegeAttended,
-                    degree,
-                    yearGraduated,
-                    medSchoolAttended,
-                    medSchoolGradYear,
-                    internshipInstitution,
-                    internshipGradYear
+                    userId, fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, homeAddress, telephoneNo,
+                    cellphoneNo, emailAddress, tinNo, insuranceIDType, insuranceIDNo, phicNo, guardianName,
+                    guardianOccupation, guardianContactNo, collegeAttended, degree, yearGraduated, medSchoolAttended,
+                    medSchoolGradYear, internshipInstitution, internshipGradYear
                 ]
             );
 
-            // get the applicantID of the newly inserted record
             const [newApplicant] = await connection.execute(
                 `SELECT applicantID FROM applicant WHERE emailAddress = ?`,
                 [emailAddress]
@@ -135,72 +94,29 @@ export async function POST({ request }) {
             applicantID = newApplicant[0].applicantID;
         }
 
-        const [existingResidency] = await connection.execute(
-            `SELECT residencyCode FROM residency WHERE applicantID = ?`,
-            [applicantID]
-        );
-        
-        // if existing: update residency table, else insert new record
-        if (existingResidency.length > 0) {
-            await connection.execute(
-                `UPDATE residency SET
-                    departmentSpecialty = ?, hospital = ?, residencyDuration = ?
-                WHERE residencyCode = ?`,
-                [
-                    departmentSpecialty,
-                    hospital,
-                    residencyDuration,
-                    existingResidency[0].residencyCode
-                ]
-            );
-        } else {
+        await connection.execute(`DELETE FROM residency WHERE applicantID = ?`, [applicantID]);
+        await connection.execute(`DELETE FROM postresidency WHERE applicantID = ?`, [applicantID]);
+
+        for (const specialty of departmentSpecialties) {
             await connection.execute(
                 `INSERT INTO residency (applicantID, departmentSpecialty, hospital, residencyDuration)
                 VALUES (?, ?, ?, ?)`,
-                [
-                    applicantID,
-                    departmentSpecialty,
-                    hospital,
-                    residencyDuration
-                ]
+                [applicantID, specialty.departmentSpecialty, specialty.hospital, specialty.residencyDuration]
             );
         }
 
-        const [existingPostResidency] = await connection.execute(
-            `SELECT postResCode FROM postresidency WHERE applicantID = ?`,
-            [applicantID]
-        );
-
-        // if existing: update postresidency table, else insert new record
-        if (existingPostResidency.length > 0) {
-            await connection.execute(
-                `UPDATE postresidency SET
-                    postResSpecialty = ?, postResInstitution = ?, postResDuration = ?
-                WHERE postResCode = ?`,
-                [
-                    postResSpecialty,
-                    postResInstitution,
-                    postResDuration,
-                    existingPostResidency[0].postResCode
-                ]
-            );
-        } else {
+        for (const postSpecialty of postDepartmentSpecialties) {
             await connection.execute(
                 `INSERT INTO postresidency (applicantID, postResSpecialty, postResInstitution, postResDuration)
                 VALUES (?, ?, ?, ?)`,
-                [
-                    applicantID,
-                    postResSpecialty,
-                    postResInstitution,
-                    postResDuration
-                ]
+                [applicantID, postSpecialty.postResSpecialty, postSpecialty.postResInstitution, postSpecialty.postResDuration]
             );
         }
 
         await connection.commit();
         connection.release();
         return new Response(JSON.stringify({ message: 'Applicant registered successfully' }), { status: 201 });
-        
+
     } catch (error) {
         await connection.rollback();
         connection.release();
