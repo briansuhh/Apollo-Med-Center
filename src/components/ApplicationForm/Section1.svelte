@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { currentSection } from '../store/applicationPart.js';
 
     let applicant = {
         fullName: '',

@@ -1,5 +1,6 @@
 <script>
   import { goto } from "$app/navigation";
+  
 
   let isRegister = false;
   let email = '';

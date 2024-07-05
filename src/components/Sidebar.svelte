@@ -23,6 +23,26 @@
     function showSettings() {
       pagename.set('Settings');
     }
+
+    async function logout() {
+    try {
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        pagename.set('');
+        console.log('Logout successful');
+        goto('/');
+      } else {
+        console.log('Logout failed');
+      }
+    } catch (error) {
+      console.log('Error during logout:', error);
+    }
+  }
   </script>
 
 <aside class="sidebar">
@@ -55,7 +75,7 @@
             <i class="fa-solid fa-gear icon"></i>Settings
         </button>
 
-        <button class="nav-button" on:click={() => goto('/login')}>
+        <button class="nav-button" on:click={logout}>
             <i class="fa-solid fa-right-from-bracket icon"></i>Logout
         </button>
     </nav>
