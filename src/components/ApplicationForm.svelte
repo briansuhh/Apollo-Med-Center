@@ -137,8 +137,7 @@
 
             showNotificationMessage('success', 'Saved data loaded successfully');
         } catch (error) {
-            console.error('Error fetching data:', error);
-            showNotificationMessage('error', 'Error fetching data.');
+            showNotificationMessage('error', 'You do not have any saved data. Please fill up the form.');
         }
     });
 
@@ -177,8 +176,7 @@
             applicant.internshipGradYear = data.user.internshipGradYear;
             showNotificationMessage('success', 'Saved data is loaded successfully');
         } else {
-            console.error('Failed to retrieve user information');
-            showNotificationMessage('error', 'Error fetching data.');
+            showNotificationMessage('error', 'You do not have any saved data. Please fill up the form.');
         }
     });
 
@@ -213,8 +211,7 @@
                 }));
             }
         } else {
-            console.error('Failed to retrieve user information');
-            showNotificationMessage('error', 'Error fetching data.');
+            showNotificationMessage('error', 'You do not have any saved data. Please fill up the form.');
         }
     });
 
@@ -251,8 +248,7 @@
                 }));
             }
         } else {
-            console.error('Failed to retrieve user information');
-            showNotificationMessage('error', 'Error fetching data.');
+            showNotificationMessage('error', 'You do not have any saved data. Please fill up the form.');
         }
     });
 
