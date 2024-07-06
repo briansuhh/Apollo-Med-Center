@@ -1,5 +1,6 @@
 <script>
     import Topbar from "./Topbar.svelte";
+    
 </script>
 
 <main class="main-content">
