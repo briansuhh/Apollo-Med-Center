@@ -1,8 +1,10 @@
 import { verifyToken } from "$lib/auth";
 import pool from "$lib/db";
+import { parse } from "cookie";
 
 export async function POST({ request }) {
-    const token = request.headers.get('cookie')?.split('token=')[1];
+    const cookies = parse(request.headers.get('cookie') || '');
+    const token = cookies.token;
 
     const {
         fullName,

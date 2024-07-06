@@ -1,8 +1,11 @@
 import { verifyToken } from "$lib/auth";
 import pool from "$lib/db";
+import { parse } from "cookie";
 
 export async function GET({ request }) {
-    const token = request.headers.get('cookie')?.split('token=')[1];
+    const cookies = parse(request.headers.get('cookie') || '');
+    const token = cookies.token;
+    
     if (!token) {
         return new Response(JSON.stringify({ error: 'No token provided' }), { status: 401 });
     }
