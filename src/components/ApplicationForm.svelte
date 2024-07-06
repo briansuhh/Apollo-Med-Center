@@ -175,7 +175,7 @@
             applicant.medSchoolGradYear = data.user.medSchoolGradYear;
             applicant.internshipInstitution = data.user.internshipInstitution;
             applicant.internshipGradYear = data.user.internshipGradYear;
-            showNotificationMessage('success', 'Saved data loaded successfully');
+            showNotificationMessage('success', 'Saved data is loaded successfully');
         } else {
             console.error('Failed to retrieve user information');
             showNotificationMessage('error', 'Error fetching data.');
@@ -284,7 +284,6 @@ try {
 }
 }
 
-    
    //confirmation of delete code heree =====
   // State variables
 let showConfirmation = false;
@@ -318,7 +317,7 @@ async function deleteApplicant() {
   }
 }
 
-function cancelDelete() {
+function cancelDeleteRes() {
   showConfirmation = false;
   specialtyToDeleteIndex = null;
 }
@@ -349,7 +348,7 @@ async function deleteApplicantPost() {
   }
 }
 
-function cancelDelete2() {
+function cancelDeletePost() {
   showConfirmation2 = false;
   specialtyToDeleteIndex2 = null;
 }
@@ -363,7 +362,7 @@ function confirmRegistration() {
 
 
 
-    function cancelDelete3() {
+function cancelSubmit() {
   showConfirmation3 = false;
 }
    
@@ -554,21 +553,21 @@ function confirmRegistration() {
   show={showConfirmation}
   message="Are you sure you want to delete this specialty?"
   on:confirm={deleteApplicant}
-  on:cancel={cancelDelete}
+  on:cancel={cancelDeleteRes}
 />
 
 <ConfirmationMessage
   show={showConfirmation2}
   message="Are you sure you want to delete this specialty?"
   on:confirm={deleteApplicantPost}
-  on:cancel={cancelDelete2}
+  on:cancel={cancelDeletePost}
 />
 
 <ConfirmationMessage
   show={showConfirmation3}
   message="Are you sure you want to submit your information?"
   on:confirm={registerApplicant}
-  on:cancel={cancelDelete3}
+  on:cancel={cancelSubmit}
 />
 
 

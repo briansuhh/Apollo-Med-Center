@@ -69,12 +69,7 @@
             <i class="fa-solid fa-address-card icon"></i>About Us
         </button>
 
-        <span class="separator">SUPPORT</span>
-
-        <button class="nav-button {$pagename === 'Settings' ? 'active' : ''}" on:click={showSettings}>
-            <i class="fa-solid fa-gear icon"></i>Settings
-        </button>
-
+        <span class="separator">ACCOUNT</span>
         <button class="nav-button" on:click={logout}>
             <i class="fa-solid fa-right-from-bracket icon"></i>Logout
         </button>
