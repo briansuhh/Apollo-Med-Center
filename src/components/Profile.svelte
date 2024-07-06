@@ -1,6 +1,60 @@
 <script>
     import Topbar from "./Topbar.svelte";
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
+    import { profileCompletion, checkProfileCompletion } from '../store/profileStore.js';
+
+    let profileData = {
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        emailAddress: '',
+        phoneNumber: '',
+        telephoneNumber: '',
+        homeAddress: ''
+    };
+
+
+    onMount(async () => {
+        try {
+            const response = await fetch('/api/readapplicants', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to retrieve user information');
+                console.log("Error Fetching");
+            }
+
+            const data = await response.json();
+            console.log(data);
+
+            profileData.fullName = data.user.fullName;
+            splitFullName();
+            profileData.homeAddress = data.user.homeAddress;
+            profileData.telephoneNumber = data.user.telephoneNo;
+            profileData.phoneNumber = data.user.cellphoneNo;
+            profileData.emailAddress = data.user.emailAddress;
+
+            checkProfileCompletion(profileData);
+            profileCompletion.subscribe(value => {
+            console.log('Profile Completion:', value);
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+
+    const splitFullName = () => {
+        const [firstName, middleName, lastName] = profileData.fullName.split(' ');
+        profileData.firstName = firstName;
+        profileData.middleName = middleName;
+        profileData.lastName = lastName;
+    }
+
+
 
   let fullName = '';
 
@@ -34,6 +88,7 @@
         <div class="profile-name">
             <h2>{fullName}</h2>
             <a href="/">Change Profile</a>
+            <p>Update your application form to fill up this section</p>
         </div>
     </div>
     <form>
@@ -43,15 +98,16 @@
             <div class="input-group two-column">
                 <div class="column">
                     <label for="first-name">First Name</label>
-                    <input id="first-name" type="text" placeholder="First Name" readonly>
+
+                    <input id="first-name" type="text" placeholder="First Name" bind:value={profileData.firstName}  readonly>
                 </div>
                 <div class="column">
                     <label for="last-name">Last Name</label>
-                    <input id="last-name" type="text" placeholder="Last Name">
+                    <input id="last-name" type="text" placeholder="Last Name" bind:value={profileData.lastName}  readonly>
                 </div>
                 <div class="column">
                     <label for="middle-name">Middle Name</label>
-                    <input id="middle-name" type="text" placeholder="Middle Name">
+                    <input id="middle-name" type="text" placeholder="Middle Name" bind:value={profileData.middleName}  readonly>
                 </div>
             </div>
         </div>
@@ -61,19 +117,21 @@
             <div class="input-group two-column">
                 <div class="column">
                     <label for="email">Email Address</label>
-                    <input id="email" type="email" placeholder="Email Address">
+                    <input id="email" type="email" placeholder="Email Address" bind:value={profileData.emailAddress}  readonly>
                 </div>
                 <div class="column">
                     <label for="phone-number">Phone Number</label>
-                    <input id="phone-number" type="text" placeholder="Phone Number">
+                    <input id="phone-number" type="text" placeholder="Phone Number" bind:value={profileData.phoneNumber}  readonly>
                 </div>
                 <div class="column">
                     <label for="telephone-number">Telephone Number</label>
-                    <input id="telephone-number" type="text" placeholder="Telephone Number">
+                    <input id="telephone-number" type="text" placeholder="Telephone Number" bind:value={profileData.telephoneNumber}  readonly>
                 </div>
             <div class="column">
             <label for="home-address">Home Address</label>
-            <input id="home-address" type="text" placeholder="Home Address">
+
+            <input id="home-address" type="text" placeholder="Home Address" bind:value={profileData.homeAddress}  readonly>
+
         </div>
     </form>
 </div>
@@ -87,6 +145,13 @@
         overflow-y: auto;
     }
 
+    input:read-only {
+        border-width: 3;
+    }
+
+    input:focus {
+    outline: none;
+    }
 
 
     .profile-section {
