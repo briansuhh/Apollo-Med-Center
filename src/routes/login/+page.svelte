@@ -1,5 +1,7 @@
 <script>
   import { goto } from "$app/navigation";
+  import { showNotificationMessage } from '../../store/notification.js';
+  import Notification from '../../components/Notification.svelte';
   
 
   let isRegister = false;
@@ -27,11 +29,14 @@
           const data = await response.json();
           localStorage.setItem('token', data.token);
           goto('/main');
+          showNotificationMessage('success', 'You have logged in successfully');
         } else {
           console.error('Login failed');
+          showNotificationMessage('error', 'Error loading applicants. Please try again later.');
         }
     } catch (error) {
       console.error('Error logging in:', error);
+      showNotificationMessage('error', 'Error loading applicants. Please try again later.');
     }
   }
 
@@ -194,6 +199,8 @@
     </div>
   </div>
 </div>
+
+<Notification />
 
 <style>
   .mainContainer {
