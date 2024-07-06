@@ -2,6 +2,9 @@
     import Topbar from "./Topbar.svelte";
     import { currentSection } from '../store/applicationPart.js';
     import { onMount } from 'svelte';
+    import { showNotificationMessage } from '../store/notification.js';
+    import Notification from './Notification.svelte';
+    import ConfirmationMessage from "./ConfirmationMessage.svelte";
 
     let applicant = {
         fullName: '',
@@ -106,6 +109,7 @@
 
             if (!response.ok) {
                 throw new Error('Failed to retrieve user information');
+                showNotificationMessage('error', 'Error. Failed to retrieve user information.');
             }
 
             const data = await response.json();
@@ -130,8 +134,11 @@
             applicant.guardianName = data.user.guardianName;
             applicant.guardianOccupation = data.user.guardianOccupation;
             applicant.guardianContactNo = data.user.guardianContactNo;
+
+            showNotificationMessage('success', 'Saved data loaded successfully');
         } catch (error) {
             console.error('Error fetching data:', error);
+            showNotificationMessage('error', 'Error fetching data.');
         }
     });
 
@@ -168,8 +175,10 @@
             applicant.medSchoolGradYear = data.user.medSchoolGradYear;
             applicant.internshipInstitution = data.user.internshipInstitution;
             applicant.internshipGradYear = data.user.internshipGradYear;
+            showNotificationMessage('success', 'Saved data loaded successfully');
         } else {
             console.error('Failed to retrieve user information');
+            showNotificationMessage('error', 'Error fetching data.');
         }
     });
 
@@ -182,9 +191,7 @@
         ];
     };
 
-    const deleteDepartmentSpecialty = (index) => {
-        applicant.departmentSpecialties = applicant.departmentSpecialties.filter((_, i) => i !== index);
-    };
+    
 
     onMount(async () => {
         const response = await fetch('/api/readresidency', {
@@ -207,6 +214,7 @@
             }
         } else {
             console.error('Failed to retrieve user information');
+            showNotificationMessage('error', 'Error fetching data.');
         }
     });
 
@@ -220,9 +228,7 @@
         ];
     };
 
-    const deletePostDepartmentSpecialty = (index) => {
-        applicant.postDepartmentSpecialties = applicant.postDepartmentSpecialties.filter((_, i) => i !== index);
-    };
+
 
     onMount(async () => {
 
@@ -246,33 +252,122 @@
             }
         } else {
             console.error('Failed to retrieve user information');
+            showNotificationMessage('error', 'Error fetching data.');
         }
     });
 
     async function registerApplicant() {
-        try {
-            const response = await fetch('/api/submitappinfo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(applicant)
-            });
 
-            if (response.ok) {
-                const result = await response.json();
-                alert('Application form registration successful');
-                // goto('/applicationform'); 
-            } else {
-                const error = await response.json();
-                alert(`Application form registration failed: ${error.message}`);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred during registration');
-        }
+
+
+try {
+    const response = await fetch('/api/submitappinfo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(applicant)
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        alert('Application form registration successful, your response will be reviewed by our staff');
+        showConfirmation3 = false;
+        // goto('/applicationform'); 
+    } else {
+        const error = await response.json();
+        alert(`Application form registration failed: ${error.message}`);
     }
+} catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred during registration');
+}
+}
+
     
+   //confirmation of delete code heree =====
+  // State variables
+let showConfirmation = false;
+let specialtyToDeleteIndex = null;
+let showConfirmation2 = false;
+let specialtyToDeleteIndex2 = null;
+
+// Function to confirm deletion
+function confirmDeleteApplicant(index) {
+  specialtyToDeleteIndex = index;
+  showConfirmation = true;
+}
+
+
+function deleteDepartmentSpecialty(index) {
+        applicant.departmentSpecialties = applicant.departmentSpecialties.filter((_, i) => i !== index);
+    };
+
+// Function to delete the applicant with confirmation
+async function deleteApplicant() {
+  if (specialtyToDeleteIndex === null) return;
+
+  try {
+    deleteDepartmentSpecialty(specialtyToDeleteIndex);
+    showNotificationMessage('success', 'Specialty deleted successfully!');
+  } catch (error) {
+    showNotificationMessage('error', 'Error deleting specialty. Please try again later.');
+  } finally {
+    showConfirmation = false;
+    specialtyToDeleteIndex = null;
+  }
+}
+
+function cancelDelete() {
+  showConfirmation = false;
+  specialtyToDeleteIndex = null;
+}
+
+function confirmDeleteApplicantPost(index) {
+  specialtyToDeleteIndex2 = index;
+  showConfirmation2 = true;
+}
+
+// Function to delete the specialty
+function deletePostDepartmentSpecialty(index) {
+  applicant.postDepartmentSpecialties = applicant.postDepartmentSpecialties.filter((_, i) => i !== index);
+  // Optionally handle success or error messages here if needed
+}
+
+
+async function deleteApplicantPost() {
+  if (specialtyToDeleteIndex2 === null) return;
+
+  try {
+    deletePostDepartmentSpecialty(specialtyToDeleteIndex2);
+    showNotificationMessage('success', 'Specialty deleted successfully!');
+  } catch (error) {
+    showNotificationMessage('error', 'Error deleting specialty. Please try again later.');
+  } finally {
+    showConfirmation2 = false;
+    specialtyToDeleteIndex2 = null;
+  }
+}
+
+function cancelDelete2() {
+  showConfirmation2 = false;
+  specialtyToDeleteIndex2 = null;
+}
+
+let showConfirmation3 = false;
+
+function confirmRegistration() {
+  showConfirmation3 = true;
+}
+
+
+
+
+    function cancelDelete3() {
+  showConfirmation3 = false;
+}
+   
+
 </script>
 
 <div class="form-container">
@@ -288,7 +383,7 @@
             <button class="nav-button {$currentSection === 'Section4' ? 'active' : ''}" on:click={showSect4}>Post Residency</button>
             <button class="next" on:click={nextField}><i class="fa-solid fa-arrow-right"></i></button>
         </div>
-        <button class="submit" on:click={registerApplicant}><i class="fa-solid fa-arrow-up-right-from-square"></i><p>Submit</p></button>
+        <button class="submit" on:click={() => confirmRegistration()}><i class="fa-solid fa-arrow-up-right-from-square"></i><p>Submit</p></button>
     </div>
     <div class="sectionContent">
       {#if $currentSection === 'Section1'}
@@ -414,7 +509,11 @@
                             <input type="text" id={`hospital_${index}`} bind:value={specialty.hospital}>
                             <label for={`residencyDuration_${index}`}>Duration</label>
                             <input type="text" id={`residencyDuration_${index}`} bind:value={specialty.residencyDuration}>
-                            <button class="delButton" type="button" on:click={() => deleteDepartmentSpecialty(index)}><i class="fa-solid fa-trash"></i></button>
+                            <button class="delButton" type="button" on:click={() => confirmDeleteApplicant(index)}>
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
+                            
+                            
                         </div>
                     {/each}
         
@@ -438,7 +537,9 @@
                             <input type="text" id={`postResInstitution_${index}`} bind:value={specialty.postResInstitution}>
                             <label for={`postResDuration_${index}`}>Post Residency Duration</label>
                             <input type="text" id={`postResDuration_${index}`} bind:value={specialty.postResDuration}>
-                            <button class="delButton" type="button" on:click={() => deletePostDepartmentSpecialty(index)}><i class="fa-solid fa-trash"></i></button>
+                            <button class="delButton" type="button" on:click={() => confirmDeleteApplicantPost(index)}>
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
                         </div>
                     {/each}
                 </fieldset>
@@ -448,6 +549,30 @@
     </div>
   </div>
   
+<Notification />
+<ConfirmationMessage
+  show={showConfirmation}
+  message="Are you sure you want to delete this specialty?"
+  on:confirm={deleteApplicant}
+  on:cancel={cancelDelete}
+/>
+
+<ConfirmationMessage
+  show={showConfirmation2}
+  message="Are you sure you want to delete this specialty?"
+  on:confirm={deleteApplicantPost}
+  on:cancel={cancelDelete2}
+/>
+
+<ConfirmationMessage
+  show={showConfirmation3}
+  message="Are you sure you want to submit your information?"
+  on:confirm={registerApplicant}
+  on:cancel={cancelDelete3}
+/>
+
+
+
   <style>
     .sectNav {
         display: flex;
