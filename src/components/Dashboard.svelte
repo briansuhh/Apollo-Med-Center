@@ -1,5 +1,14 @@
 <script>
     import Topbar from "./Topbar.svelte";
+    import { onMount } from 'svelte';
+    import { profileCompletion } from '../store/profileStore.js';
+
+    let isProfileComplete = false;
+
+
+    onMount(() => {
+        console.log(profileCompletion);
+    });
     
 </script>
 
@@ -32,63 +41,17 @@
         </div>
       </div>
       <p>Your application is currently being reviewed by our HR team. This process typically takes 1-2 weeks.</p>
-      <div class="interview-schedule">
-        <h2>Interview Schedule</h2>
-        <table>
-          <tr>
-            <th>Date</th>
-            <th>8:00</th>
-            <th>9:00</th>
-            <th>10:00</th>
-            <th>11:00</th>
-            <th>12:00</th>
-            <th>13:00</th>
-          </tr>
-          <tr>
-            <td>Mon</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Tue</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Wed</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Thu</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </table>
-      </div>
     </section>
-    <aside class="notifications">
-      <h2>Notifications</h2>
-      <div class="notification"></div>
-      <div class="notification"></div>
-      <div class="notification"></div>
-    </aside>
+
+    {#if isProfileComplete}
+        <p>Your profile is complete!</p>
+    <!-- Display dashboard content -->
+    {:else}
+        <p>Please complete your profile to access the dashboard features.</p>
+    <!-- Display profile completion form or prompt -->
+    {/if}
+
+
   </main>
 
 <style>

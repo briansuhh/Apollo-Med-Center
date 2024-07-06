@@ -1,17 +1,18 @@
 <script>
     import Topbar from "./Topbar.svelte";
-    import { onMount } from 'svelte';
-    import { checkProfileCompletion } from '../store/profileStore.js';
+    import { onMount, onDestroy } from 'svelte';
+    import { profileCompletion, checkProfileCompletion } from '../store/profileStore.js';
 
     let profileData = {
         firstName: '',
         lastName: '',
         middleName: '',
-        email: '',
+        emailAddress: '',
         phoneNumber: '',
         telephoneNumber: '',
         homeAddress: ''
     };
+
 
     onMount(async () => {
         try {
@@ -24,7 +25,7 @@
 
             if (!response.ok) {
                 throw new Error('Failed to retrieve user information');
-                console.log("Error Fetching")
+                console.log("Error Fetching");
             }
 
             const data = await response.json();
@@ -36,6 +37,11 @@
             profileData.telephoneNumber = data.user.telephoneNo;
             profileData.phoneNumber = data.user.cellphoneNo;
             profileData.emailAddress = data.user.emailAddress;
+
+            checkProfileCompletion(profileData);
+            profileCompletion.subscribe(value => {
+            console.log('Profile Completion:', value);
+            });
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -47,13 +53,6 @@
         profileData.middleName = middleName;
         profileData.lastName = lastName;
     }
-
-
-
-    // function handleSubmit() {
-    //     checkProfileCompletion(profileData);
-    //     // Optionally, submit the form data to your backend here
-    // }
 
 
 
@@ -89,6 +88,7 @@
         <div class="profile-name">
             <h2>{fullName}</h2>
             <a href="/">Change Profile</a>
+            <p>Update your application form to fill up this section</p>
         </div>
     </div>
     <form>
@@ -129,10 +129,6 @@
             <div class="column">
             <label for="home-address">Home Address</label>
             <input id="home-address" type="text" placeholder="Home Address" bind:value={profileData.homeAddress}  readonly>
-        </div>
-        <div class="form-actions">
-            <button type="button" class="cancel">Cancel</button>
-            <button type="submit" class="update">Update</button>
         </div>
     </form>
 </div>
