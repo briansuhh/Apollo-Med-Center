@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
   import { showNotificationMessage } from '../../store/notification.js';
   import Notification from '../../components/Notification.svelte';
+  import { pagename } from '../../store/page.js';
   
 
   let isRegister = false;
@@ -28,15 +29,16 @@
       if (response.ok) {
           const data = await response.json();
           localStorage.setItem('token', data.token);
-          goto('/main');
           showNotificationMessage('success', 'You have logged in successfully');
+          pagename.set('Dashboard');
+          setTimeout(() => goto('/main'), 1000); 
         } else {
           console.error('Login failed');
-          showNotificationMessage('error', 'Error loading applicants. Please try again later.');
+          showNotificationMessage('error', 'Login failed. Please check your credentials and try again.');
         }
     } catch (error) {
       console.error('Error logging in:', error);
-      showNotificationMessage('error', 'Error loading applicants. Please try again later.');
+      showNotificationMessage('error', 'Login failed. Please check your credentials and try again.');
     }
   }
 

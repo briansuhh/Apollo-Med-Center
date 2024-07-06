@@ -83,7 +83,7 @@
     <h1>Profile</h1>
     <div class="profile-header">
         <div class="profile-picture">
-            <img src="images/logo.png" alt="Profile Pic">
+            <img src="images/account.png" alt="Profile Pic">
         </div>
         <div class="profile-name">
             <h2>{fullName}</h2>
@@ -98,6 +98,7 @@
             <div class="input-group two-column">
                 <div class="column">
                     <label for="first-name">First Name</label>
+
                     <input id="first-name" type="text" placeholder="First Name" bind:value={profileData.firstName}  readonly>
                 </div>
                 <div class="column">
@@ -128,7 +129,9 @@
                 </div>
             <div class="column">
             <label for="home-address">Home Address</label>
+
             <input id="home-address" type="text" placeholder="Home Address" bind:value={profileData.homeAddress}  readonly>
+
         </div>
     </form>
 </div>
@@ -224,28 +227,4 @@
         font-weight: 300;
         font-style: normal;
     }
-
-    .form-actions {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .form-actions button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-
-    .form-actions .cancel {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .form-actions .update {
-        background-color: #007bff;
-        color: #fff;
-    }
-
 </style>
