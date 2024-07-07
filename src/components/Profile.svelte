@@ -163,12 +163,18 @@
         align-items: center;
         margin-bottom: 20px;
     }
+    .profile-picture {
+        width: 100px; /* Adjust width as needed */
+        height: 100px; /* Adjust height as needed */
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 20px;
+    }
 
     .profile-picture img {
-        border-radius: 50%;
-        height: 80px;
-        width: 80px;
-        margin-right: 20px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Maintain aspect ratio; crop if necessary */
     }
 
     .profile-name h2 {
