@@ -139,6 +139,16 @@ VALUES ('2024-CMC-1', 1, 'Alberto Esteban Sebastian', 42, 'M', 'S', '1982-01-06'
         '24 Brgy Sta Ana, Taguig City', '(02) 2876-5413', '+63 926 610 8639', 'JCelenadelossantos@gmail.com', '149-832-432-000', 'SSS', '04-7654325-3',
         '32-162534893-9', 'Maria A. Delos Santos', 'Waitress', '+63 991 455 4160', 'University of the Philippines', 'Bachelor of Science in Nursing', '2010',
         'University of the Philippines', '2014', 'Manila General Hospital', '2015');
+        
+        
+-- SELECT applicantID FROM applicant WHERE userID = 1;
+-- SELECT * FROM postresidency WHERE applicantID = (SELECT applicantID FROM applicant WHERE userID = ?)
+
+select * from applicant where userID = 1;
+
+select applicantID from applicant;
+
+select * from residency where applicantID = (select applicantID from applicant where userID = 1);
 
 -- Insert data into the `residency` table
 INSERT INTO residency (applicantID, departmentSpecialty, hospital, residencyDuration)
@@ -162,23 +172,45 @@ WHERE applicantID='2024-CMC-A-0002';
 SELECT * FROM postresidency 
 WHERE postResCode='TC-A-2' AND applicantID='2024-CMC-A-0002';
 
-
-CREATE TABLE `admins` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `name` VARCHAR(100) NOT NULL,
-    `email` VARCHAR(255) UNIQUE NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+DROP TABLE IF EXISTS admins;
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
 -- To read the application record of the first user
 SELECT *
 FROM applicant as a, residency as r, postresidency as pr
-WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID AND userID = 18;
+WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID;
+
+select * 
+from applicant 
+where userID = 1;
 
 
+SELECT 
+                a.applicantID, a.fullName, a.age, a.gender, a.civilStatus, a.birthDate, 
+                a.birthPlace, a.citizenship, a.homeAddress, a.telephoneNo, a.cellphoneNo, 
+                a.emailAddress, a.tinNo, a.insuranceIDType, a.insuranceIDNo, a.phicNo, 
+                a.guardianName, a.guardianOccupation, a.guardianContactNo, a.collegeAttended, 
+                a.degree, a.yearGraduated, a.medSchoolAttended, a.medSchoolGradYear, 
+                a.internshipInstitution, a.internshipGradYear, r.residencyCode, 
+                r.departmentSpecialty, r.hospital, r.residencyDuration, pr.postResCode, 
+                pr.postResSpecialty, pr.postResInstitution, pr.postResDuration
+            FROM 
+                applicant as a, residency as r, postresidency as pr
+			WHERE
+				a.applicantID = r.applicantID AND r.applicantID = pr.applicantID;
 
 
+SELECT * 
+FROM applicant as a, residency as r, postresidency as pr 
+WHERE a.applicantID = r.applicantID AND r.applicantID = pr.applicantID AND userID = 1
 
-
+-- applicationStatus
+-- Confirm - 1
+-- Denied - 0
+-- For review - "default"
 
