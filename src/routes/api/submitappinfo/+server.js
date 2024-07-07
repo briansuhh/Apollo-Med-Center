@@ -90,8 +90,8 @@ export async function POST({ request }) {
             );
 
             const [newApplicant] = await connection.execute(
-                `SELECT applicantID FROM applicant WHERE emailAddress = ?`,
-                [emailAddress]
+                `SELECT applicantID FROM applicant WHERE userID = ?`,
+                [userId]
             );
             applicantID = newApplicant[0].applicantID;
         }
