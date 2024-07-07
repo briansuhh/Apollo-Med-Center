@@ -41,6 +41,7 @@ CREATE TABLE applicant (
     medSchoolGradYear YEAR,
     internshipInstitution VARCHAR(255),
     internshipGradYear YEAR,
+    status VARCHAR(10),
     PRIMARY KEY (applicantID),
     FOREIGN KEY (userID) REFERENCES users (id) ON DELETE CASCADE
 );
@@ -121,24 +122,23 @@ END$$
 DELIMITER ;
 
 
-
 -- Insert data into the `applicant` table
 INSERT INTO applicant (applicantID, userID, fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, 
 					   homeAddress, telephoneNo, cellphoneNo, emailAddress, tinNo, insuranceIDType, insuranceIDNo, 
                        phicNo, guardianName, guardianOccupation, guardianContactNo, collegeAttended, degree, yearGraduated, 
-                       medSchoolAttended, medSchoolGradYear, internshipInstitution, internshipGradYear)
+                       medSchoolAttended, medSchoolGradYear, internshipInstitution, internshipGradYear, status)
 VALUES ('2024-CMC-1', 1, 'Alberto Esteban Sebastian', 42, 'M', 'S', '1982-01-06', 'Quezon City', 'American', 
         '456 Narra st., Antipolo City', '639', '+63 946 009 0359', 'albrtosebastian06@gmail.com', '149-133-543-000', 'GSIS', '0028-2581546-4',
         '34-694024595-2', 'Rachel Ann T. Sebastian', 'Software Developer', '+63 981 025 1322', 'Our Lady of Fatima University', 'Bachelor of Science in Biology', '2004',
-        'University of Santo Tomas', '2010', 'St. Luke''s Medical Center', '2011'),
+        'University of Santo Tomas', '2010', 'St. Luke''s Medical Center', '2011', 'Confirm'),
         ('2024-CMC-2', 2, 'Mutya Carilla Reyes', 47, 'F', 'M', '1977-04-07', 'Makati City', 'Filipino',
         '5964 Gloria, Makati City', 'N/A', '+63 903 753 0040', 'mutya.cr07@gmail.com', '149-413-123-000', 'SSS', '04-8593851-3',
         '03-502596032-6', 'Mary C. Reyes', 'Accountant', '+63 931 875 6392', 'University of Santo Tomas', 'Bachelor of Science in Radiologic Technology', '1999',
-        'University of Santo Tomas', '2003', 'University of Santo Tomas Hospital', '2005'),
+        'University of Santo Tomas', '2003', 'University of Santo Tomas Hospital', '2005', 'On review'),
         ('2024-CMC-3', 3, 'Elena Arena Delos Santos', 35, 'F', 'W', '1989-09-21', 'Taguig City', 'Filipino',
         '24 Brgy Sta Ana, Taguig City', '(02) 2876-5413', '+63 926 610 8639', 'JCelenadelossantos@gmail.com', '149-832-432-000', 'SSS', '04-7654325-3',
         '32-162534893-9', 'Maria A. Delos Santos', 'Waitress', '+63 991 455 4160', 'University of the Philippines', 'Bachelor of Science in Nursing', '2010',
-        'University of the Philippines', '2014', 'Manila General Hospital', '2015');
+        'University of the Philippines', '2014', 'Manila General Hospital', '2015', 'Denied');
         
         
 -- SELECT applicantID FROM applicant WHERE userID = 1;
@@ -164,6 +164,7 @@ VALUES ('2024-CMC-1', 'Internal Medicine', 'Makati Medical Center', '2 years'),
 
   
   
+
   
 -- More specific way of showing a record
 SELECT * FROM applicant 
