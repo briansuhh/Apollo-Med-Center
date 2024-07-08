@@ -6,9 +6,63 @@
   
 
   let isProfileComplete;
+  let isApplicationApproved;
 
   onMount(() => {
       isProfileComplete = $profileCompletion;
+  });
+
+  // this is for checking if the he has submitted the application
+  onMount(async () => {
+      const [applicantResponse, residencyRespo, postResRespo] = await Promise.all([
+      
+      fetch('/api/readapplicants', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }),
+      fetch('/api/readresidency', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }),
+      fetch('/api/readpostres', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })]);
+
+      const applicantData = await applicantResponse.json();
+      const residencyData = await residencyRespo.json();
+      const postResData = await postResRespo.json();
+
+      if (applicantData.user && residencyData.user && postResData.user) {
+          isProfileComplete = true;
+      } else {
+          isProfileComplete = false;
+      }
+    });
+
+    // this is for checking if the application is accepted
+    onMount(async () => {
+      const response = await fetch('/api/readapplicants', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+
+      const data = await response.json();
+      if (data.user.status === 'Approved') {
+          isApplicationApproved = 'Approved';
+      } else if (data.user.status === 'Denied') {
+          isApplicationApproved = 'Denied';
+      } else {
+          isApplicationApproved = 'Pending';
+      }
   });
 </script>
 
@@ -30,7 +84,7 @@
               <div class="tooltip-container">
                 <p>Profile Completion</p> 
                 <span class="tooltip-icon">[?]</span>
-                <div class="tooltip-text">If this is not showing the correct information, visit the profile page to update the UI.</div>
+                <div class="tooltip-text">If this is not showing the correct information, refresh this page to update the UI.</div>
               </div>
           </div>
           
@@ -42,26 +96,44 @@
             {/if}
             <div class="tooltip-container">
               <p>Application Completion</p> 
-              <span class="tooltip-icon">[?]</span>
-              <div class="tooltip-text">If this is not showing the correct information, visit the profile page to update the UI.</div>
+              <span class="tooltip-icon">[?]</span> 
+              <div class="tooltip-text">If this is not showing the correct information, refresh this page to update the UI.</div>
             </div>
           </div>
           <div class="step-completed">
-            <h3 class= "Incomplete">Pending</h3>
-              <p>Application Confirmation</p>
+            {#if isApplicationApproved === 'Approved'}
+                  <h3 class="Complete">Approved</h3>
+              {:else if isApplicationApproved === 'Denied'}
+                  <h3 class="Incomplete">Denied</h3>
+              {:else}
+                  <h3 class="Incomplete">Pending</h3>
+              {/if}
+            <div class="tooltip-container">
+              <p>Application Confirmation</p> 
+              <span class="tooltip-icon">[?]</span>
+              <div class="tooltip-text">If this is not showing the correct information, refresh this page to update the UI.</div>
+            </div>
           </div>
       </div>
       
       <h3 class="progress-title">Progress Tracker</h3>
       <div class="progress-bar">
-        {#if isProfileComplete}
+        {#if isApplicationApproved === 'Approved' && isProfileComplete}
+          <div class="progress" style="width:100%"><div class="percentage">100%</div></div>
+        {:else if isProfileComplete}
             <div class="progress" style="width:67%"><div class="percentage">67%</div></div>
         {:else}
         <div class="progress" style="width:0%"><div class="percentage">0%</div></div>
         {/if}
         
     </div>
+    {#if isApplicationApproved === 'Approved' && isProfileComplete}
+      <p>Congratulations! You have successfully completed the application process. Please wait for an update regarding your scheduled interview.</p>
+    {:else if isProfileComplete}
       <p>Your application is currently being reviewed by our HR team. This process typically takes 1-2 weeks.</p>
+    {:else}
+      <p>Complete your profile and application form to start the application process.</p>
+    {/if}
   </section>
 
   
