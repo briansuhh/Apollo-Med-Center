@@ -1,0 +1,82 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #343a40;
+}
+
+nav ul, .support ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li, .support ul li {
+    margin: 20px 0;
+}
+
+nav ul li a, .support ul li a {
+    text-decoration: none;
+    color: #343a40;
+    font-weight: 600;
+}
+
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.about h1 {
+    font-size: 36px;
+    color: #343a40;
+}
+
+.about h2 {
+    font-size: 24px;
+    color: #495057;
+    margin-top: 20px;
+}
+
+.about p, .about ul {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.about ul {
+    padding-left: 20px;
+}
+
+.about ul li {
+    margin: 10px 0;
+}

@@ -45,6 +45,89 @@
         postDepartmentSpecialties: []
     };
 
+    const applicantCompletion = {
+            set: function(value) {
+                this.value = value;
+            },
+            value: false // Initial value
+        };
+
+    function checkApplicantCompletion(applicant) {
+        const fields = [
+            applicant.fullName,
+            applicant.firstName,
+            applicant.middleName,
+            applicant.lastName,
+            applicant.age,
+            applicant.gender,
+            applicant.civilStatus,
+            applicant.birthDate,
+            applicant.birthPlace,
+            applicant.citizenship,
+            applicant.homeAddress,
+            applicant.telephoneNo,
+            applicant.cellphoneNo,
+            applicant.emailAddress,
+            applicant.tinNo,
+            applicant.insuranceIDType,
+            applicant.insuranceIDNo,
+            applicant.phicNo,
+            applicant.guardianName,
+            applicant.guardianOccupation,
+            applicant.guardianContactNo,
+            applicant.collegeAttended,
+            applicant.degree,
+            applicant.yearGraduated,
+            applicant.medSchoolAttended,
+            applicant.medSchoolGradYear,
+            applicant.internshipInstitution,
+            applicant.internshipGradYear,
+        ];
+
+        // Check arrays separately for non-empty
+        const arrayFields = [
+            applicant.departmentSpecialties,
+            applicant.postDepartmentSpecialties
+        ];
+
+        const isComplete = fields.every((field, index) => {
+            if (typeof field === 'string') {
+                const trimmedField = field.trim();
+                console.log(`Checking string field ${index}: "${trimmedField}"`);
+                return trimmedField !== '';
+            } else {
+                console.log(`Checking other field ${index}: ${field}`);
+                return !!field;
+            }
+        }) && arrayFields.every((array, arrayIndex) => {
+            console.log(`Checking array field ${arrayIndex}: ${array}`);
+            return array.length > 0 && array.every((item, itemIndex) => {
+                if (typeof item === 'object' && item !== null) {
+                    console.log(`Checking object item ${itemIndex} in array field ${arrayIndex}:`, item);
+                    return Object.entries(item).every(([key, value], propIndex) => {
+                        if (typeof value === 'string') {
+                            const trimmedValue = value.trim();
+                            console.log(`Checking object property ${key} in item ${itemIndex} in array field ${arrayIndex}: "${trimmedValue}"`);
+                            return trimmedValue !== '';
+                        }
+                        // We ignore non-string properties
+                        console.log(`Ignoring non-string property ${key} in item ${itemIndex} in array field ${arrayIndex}:`, value);
+                        return true; // Non-string values are ignored in the completeness check
+                    });
+                } else {
+                    console.log(`Non-object item ${itemIndex} in array field ${arrayIndex}:`, item);
+                    return false; // Non-object items are considered incomplete
+                }
+            });
+        });
+
+        console.log('Is applicant profile complete?', isComplete);
+
+        applicantCompletion.set(isComplete);
+    }
+
+
+
     let list = [
         'Filipino',
         'American'
@@ -176,7 +259,7 @@
             applicant.internshipGradYear = data.user.internshipGradYear;
             showNotificationMessage('success', 'Saved data is loaded successfully');
         } else {
-            showNotificationMessage('error', 'You do not have any saved data. Please fill up the form.');
+            console.error('Failed to retrieve user information');
         }
     });
 
@@ -362,6 +445,16 @@ function cancelSubmit() {
   showConfirmation3 = false;
 }
    
+function registerRestriction() {
+    checkApplicantCompletion(applicant);
+    console.log(applicantCompletion.value)
+    console.log("Testing")
+    if (applicantCompletion.value) {
+        confirmRegistration();
+    } else {
+        showNotificationMessage('error', 'There are empty fields');
+    }
+}
 
 </script>
 
@@ -378,7 +471,7 @@ function cancelSubmit() {
             <button class="nav-button {$currentSection === 'Section4' ? 'active' : ''}" on:click={showSect4}>Post Residency</button>
             <button class="next" on:click={nextField}><i class="fa-solid fa-arrow-right"></i></button>
         </div>
-        <button class="submit" on:click={() => confirmRegistration()}><i class="fa-solid fa-arrow-up-right-from-square"></i><p>Submit</p></button>
+        <button class="submit" on:click={() => registerRestriction()}><i class="fa-solid fa-arrow-up-right-from-square"></i><p>Submit</p></button>
     </div>
     <div class="sectionContent">
       {#if $currentSection === 'Section1'}

@@ -3,11 +3,27 @@
     import Profile from '../../components/Profile.svelte'
     import Sidebar from '../../components/Sidebar.svelte';
     import Dashboard from '../../components/Dashboard.svelte';
+    import AboutUs from '../../components/AboutUs.svelte';
     import { pagename } from '../../store/page.js'; 
+    import { onMount } from 'svelte';
+
+onMount(() => {
+    const token = localStorage.getItem('token');
+
+    // Clear token to prevent subsequent reloads
+    localStorage.removeItem('token');
+
+    if (token) {
+        location.reload();
+    }
+});
+
+
   </script>
   
   <div class="mainbox">
     <div class="box">
+
       <Sidebar />
       {#if $pagename == "Dashboard"}
         <Dashboard />
@@ -15,6 +31,8 @@
         <ApplicationForm />
       {:else if $pagename === "Profile"}
         <Profile />  
+      {:else if $pagename === "About Us"}
+        <AboutUs />
       {/if}
 
 

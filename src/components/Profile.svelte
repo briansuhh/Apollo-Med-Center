@@ -1,6 +1,6 @@
 <script>
     import Topbar from "./Topbar.svelte";
-    import { onMount, onDestroy } from 'svelte';
+    import { onMount } from 'svelte';
     import { profileCompletion, checkProfileCompletion } from '../store/profileStore.js';
 
     let profileData = {
@@ -13,6 +13,7 @@
         homeAddress: ''
     };
 
+    let isProfileComplete;
 
     onMount(async () => {
         try {
@@ -25,7 +26,6 @@
 
             if (!response.ok) {
                 throw new Error('Failed to retrieve user information');
-                console.log("Error Fetching");
             }
 
             const data = await response.json();
@@ -39,9 +39,10 @@
             profileData.emailAddress = data.user.emailAddress;
 
             checkProfileCompletion(profileData);
-            profileCompletion.subscribe(value => {
-            console.log('Profile Completion:', value);
-            });
+
+            isProfileComplete = $profileCompletion;
+            console.log('Is profile complete?', isProfileComplete);
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -52,28 +53,26 @@
         profileData.firstName = firstName;
         profileData.middleName = middleName;
         profileData.lastName = lastName;
-    }
+    };
 
+    let fullName = '';
 
+    onMount(async () => {
+        const response = await fetch('/api/readlogin', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        });
 
-  let fullName = '';
-
-  onMount(async () => {
-    const response = await fetch('/api/readlogin', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
+        if (response.ok) {
+            const data = await response.json();
+            fullName = data.user.name;
+        } else {
+            console.error('Failed to retrieve user information');
+        }
     });
-
-    if (response.ok) {
-      const data = await response.json();
-      fullName = data.user.name;
-    } else {
-      console.error('Failed to retrieve user information');
-    }
-  });
 </script>
 
 <main class="main-content">
@@ -88,7 +87,11 @@
         <div class="profile-name">
             <h2>{fullName}</h2>
             <a href="/">Change Profile</a>
-            <p>Update your application form to fill up this section</p>
+            {#if isProfileComplete}
+            <p class= "Complete">Profile details is up to date</p>
+            {:else}
+            <p class= "Incomplete">Update Your Application form to fill your profile</p>
+            {/if}
         </div>
     </div>
     <form>
@@ -139,6 +142,20 @@
 </main>
 
 <style>
+
+    .Complete {
+        color: teal; /* Custom color for "Accomplished" */
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    .Incomplete {
+        color: rgb(255, 68, 0);
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
 
     .main-content {
         flex: 1;
