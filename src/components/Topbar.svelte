@@ -24,11 +24,11 @@
 <header>
     <input type="text" placeholder="Search">
     <button><i class="fa-solid fa-magnifying-glass buttonIcon"></i></button>
-    <h3 class="user"><i class="fa-solid fa-user-tie icon"></i>{fullName}</h3>
+    <h3 class="user"><i class="fa-solid fa-user icon"></i>{fullName}</h3>
   </header>
 
 <style>
-.icon {
+  .icon {
     font-size: 18px;
     color: #6e7ba2;
     margin-right: 15px;

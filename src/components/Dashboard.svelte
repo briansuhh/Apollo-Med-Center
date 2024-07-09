@@ -127,19 +127,33 @@
         {/if}
         
     </div>
+    <h3 class="progress-title">Notifications</h3>
+    <div class="notif">
     {#if isApplicationApproved === 'Approved' && isProfileComplete}
       <p>Congratulations! You have successfully completed the application process. Please wait for an update regarding your scheduled interview.</p>
+    {:else if isApplicationApproved === 'Denied'}
+      <p>We regret to inform you that you have not been selected for an interview at this time. We encourage you to apply again in the future.</p>
     {:else if isProfileComplete}
       <p>Your application is currently being reviewed by our HR team. This process typically takes 1-2 weeks.</p>
     {:else}
       <p>Complete your profile and application form to start the application process.</p>
     {/if}
+  </div>
   </section>
 
   
 </main>
 
 <style>
+  .notif {
+    border-width: 3px; 
+    background-color: white;
+    width: 97%;
+    padding-top: 30px;
+    padding-bottom: 40px;
+    border-radius: 20px;
+    text-align: center;
+  }
 
   .progress-title {
     margin-bottom: 10px;
@@ -147,16 +161,16 @@
   }
 
   .percentage {
-    margin-left: 30px;
+    margin-left: 20px;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-style: normal;
-    font-size: 50px;
+    font-size: 22px;
     color: white;
   }
 
   .progress-bar {
-    height: 70px;
+    height: 30px;
     background-color: #5a5a5a;
     border-radius: 50px;
     margin-bottom: 20px;
@@ -220,12 +234,12 @@
 
   .Complete {
     color: teal; /* Custom color for "Accomplished" */
-    font-size: 40px;
+    font-size: 24px;
   }
 
   .Incomplete {
     color: rgb(255, 68, 0);
-    font-size: 40px;
+    font-size: 24px;
   }
 
   .main-content {

@@ -45,7 +45,7 @@
     .content {
         flex: 1;
         margin-left: 30px;
-        margin-top: 25px;
+        margin-top: 19px;
         margin-right: 30px;
         width: 95%;
         color: #1a1a1a;
@@ -53,7 +53,10 @@
 
     .about h1 {
         font-size: 36px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-style: normal;
     }
 
     .about h2 {
