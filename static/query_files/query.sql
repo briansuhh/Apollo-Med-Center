@@ -16,32 +16,32 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS applicant;
 CREATE TABLE applicant (
-    applicantID CHAR(15) NOT NULL,
+    applicantID CHAR(12) NOT NULL,
     userID INT NOT NULL,
-    fullName VARCHAR(255) NOT NULL,
+    fullName VARCHAR(90) NOT NULL,
     age INT NOT NULL,
-    gender VARCHAR(10) NOT NULL,
-    civilStatus VARCHAR(20) NOT NULL,
+    gender CHAR(2) NOT NULL,
+    civilStatus CHAR(2) NOT NULL,
     birthDate DATE NOT NULL,
-    birthPlace VARCHAR(255) NOT NULL,
+    birthPlace VARCHAR(50) NOT NULL,
     citizenship VARCHAR(50) NOT NULL,
     homeAddress VARCHAR(255) NOT NULL,
-    telephoneNo VARCHAR(20),
-    cellphoneNo VARCHAR(20),
-    emailAddress VARCHAR(255) NOT NULL,
-    tinNo VARCHAR(20),
-    insuranceIDType VARCHAR(50),
-    insuranceIDNo VARCHAR(50),
-    phicNo VARCHAR(50),
-    guardianName VARCHAR(255),
-    guardianOccupation VARCHAR(100),
-    guardianContactNo VARCHAR(20),
-    collegeAttended VARCHAR(255),
-    degree VARCHAR(100),
+    telephoneNo CHAR(8),
+    cellphoneNo CHAR(16),
+    emailAddress VARCHAR(50) NOT NULL,
+    tinNo CHAR(15),
+    insuranceIDType CHAR(4),
+    insuranceIDNo CHAR(14),
+    phicNo CHAR(14),
+    guardianName VARCHAR(90),
+    guardianOccupation VARCHAR(50),
+    guardianContactNo CHAR(16),
+    collegeAttended VARCHAR(200),
+    degree VARCHAR(50),
     yearGraduated YEAR,
-    medSchoolAttended VARCHAR(255),
+    medSchoolAttended VARCHAR(200),
     medSchoolGradYear YEAR,
-    internshipInstitution VARCHAR(255),
+    internshipInstitution VARCHAR(200),
     internshipGradYear YEAR,
     status VARCHAR(12),
     PRIMARY KEY (applicantID),
@@ -69,12 +69,12 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS residency;
 CREATE TABLE residency (
-  residencyCode CHAR(8) NOT NULL,
-  applicantID CHAR(15) NOT NULL,
+  residencyCode CHAR(7) NOT NULL,
+  applicantID CHAR(12) NOT NULL,
   departmentSpecialty VARCHAR(30) NOT NULL,
   hospital VARCHAR(70) NOT NULL,
   residencyDuration INT,
-  PRIMARY KEY (residencyCode, applicantID),
+  PRIMARY KEY (residencyCode),
   FOREIGN KEY (applicantID) REFERENCES applicant (applicantID) ON DELETE CASCADE);
 
 
@@ -97,12 +97,12 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS postresidency;
 CREATE TABLE postresidency (
-  postResCode CHAR(8) NOT NULL,
-  applicantID CHAR(15) NOT NULL,
+  postResCode CHAR(7) NOT NULL,
+  applicantID CHAR(12) NOT NULL,
   postResSpecialty VARCHAR(30) NOT NULL,
   postResInstitution VARCHAR(60) NOT NULL,
   postResDuration INT,
-  PRIMARY KEY (postResCode, applicantID),
+  PRIMARY KEY (postResCode),
   FOREIGN KEY (applicantID) REFERENCES applicant (applicantID) ON DELETE CASCADE);
     
     
@@ -168,3 +168,16 @@ VALUES ('2024-CMC-1', 'Internal Medicine', 'Makati Medical Center', 2),
 -- Insert data into the admins table
 INSERT INTO admins (id, name, email, password) VALUES
 (1, 'Admin', 'amc.admin@gmail.com', '$2a$10$K/2KjvfBECG4RnxSxLsXXOP9zJUeprK6uTBI/ejNj00yCrGUPokgK');
+
+
+INSERT INTO applicant (
+    userID, fullName, age, gender, civilStatus, birthDate, birthPlace, citizenship, homeAddress, telephoneNo, cellphoneNo, emailAddress, tinNo, insuranceIDType, insuranceIDNo, phicNo, guardianName, guardianOccupation, guardianContactNo, collegeAttended, degree, yearGraduated, medSchoolAttended, medSchoolGradYear, internshipInstitution, internshipGradYear, status
+) VALUES
+(9, 'Debbie Kaye Alagao', 42, 'F', 'S', '1982-01-06', 'Quezon City', 'American', '456 Narra st., Antipolo City', '439-4048', '+63 946 009 0359', 'debbiekayealagao29@gmail.com', '149-133-543-000', 'GSIS', '0028-2581546-4', '34-694024595-2', 'Rachel Ann T. Alagao', 'Software Developer', '+63 981 025 1322', 'Our Lady of Fatima University', 'Bachelor of Science in Biology', 2004, 'University of Santo Tomas', 2010, 'St. Luke\'s Medical Center', 2011, 'Under review');
+
+INSERT INTO residency (applicantID, departmentSpecialty, hospital, residencyDuration)
+VALUES ('2024-CMC-9', 'Cardiology', 'St. Luke''s Medical Center', 4);
+
+INSERT INTO postresidency (applicantID, postResSpecialty, postResInstitution, postResDuration) 
+VALUES ('2024-CMC-9', 'Internal Medicine', 'Makati Medical Center', 2);
+
