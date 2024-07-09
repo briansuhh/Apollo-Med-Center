@@ -143,6 +143,13 @@
 
 <style>
 
+    h1 {
+        font-size: 36px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-style: normal;
+    }
+
     .Complete {
         color: teal; /* Custom color for "Accomplished" */
         font-family: "Poppins", sans-serif;
@@ -173,6 +180,8 @@
 
     .profile-section {
         padding: 20px;
+        margin-left: 10px;
+        margin-right: 30px;
     }
 
     .profile-header {
