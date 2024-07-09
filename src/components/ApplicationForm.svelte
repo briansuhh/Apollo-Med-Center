@@ -481,19 +481,19 @@ function registerRestriction() {
                     <legend>PERSONAL INFORMATION</legend>
                     <div class="form-group">
                         <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" bind:value={applicant.firstName}>
+                        <input type="text" id="firstName" bind:value={applicant.firstName} placeholder="Enter First Name">
                         <label for="middleName">Middle Name</label>
-                        <input type="text" id="middleName" bind:value={applicant.middleName}>
+                        <input type="text" id="middleName" bind:value={applicant.middleName} placeholder="Enter Middle Name">
                         <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" bind:value={applicant.lastName}>
+                        <input type="text" id="lastName" bind:value={applicant.lastName} placeholder="Enter Last Name">
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="number" id="age" bind:value={applicant.age}>
+                        <input type="number" id="age" bind:value={applicant.age} placeholder="Enter Age">
                         <label for="birthdate">Birthdate</label>
-                        <input type="date" id="birthdate" bind:value={applicant.birthDate}>
+                        <input type="date" id="birthdate" bind:value={applicant.birthDate} placeholder="Enter Birthdate">
                         <label for="birthplace">Birthplace</label>
-                        <input type="text" id="birthplace" bind:value={applicant.birthPlace}>
+                        <input type="text" id="birthplace" bind:value={applicant.birthPlace} placeholder="Enter Birthplace">
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>
@@ -521,61 +521,65 @@ function registerRestriction() {
                     </div>
                     <div class="form-group">
                         <label for="homeAddress">Home Address</label>
-                        <input type="text" id="homeAddress" bind:value={applicant.homeAddress}>
+                        <input type="text" id="homeAddress" bind:value={applicant.homeAddress} placeholder="Enter Home Address">
                         <label for="telephoneNo">Telephone No.</label>
-                        <input type="tel" id="telephoneNo" bind:value={applicant.telephoneNo}>
+                        <input type="tel" id="telephoneNo" bind:value={applicant.telephoneNo} placeholder="000-0000">
                         <label for="cellphoneNo">Cellphone No.</label>
-                        <input type="tel" id="cellphoneNo" bind:value={applicant.cellphoneNo}>
+                        <input type="tel" id="cellphoneNo" bind:value={applicant.cellphoneNo} placeholder="+63 000 000 0000">
                     </div>
                     <div class="form-group">
                         <label for="insuranceIDType">Insurance ID Type</label>
-                        <input type="text" id="insuranceIDType" bind:value={applicant.insuranceIDType}>
+                        <select bind:value={applicant.insuranceIDType} placeholder="Select your insurance ID type">
+                            <option value="" disabled selected>Select your insurance ID type</option>
+                            <option value="GSIS">GSIS</option>
+                            <option value="SSS">SSS</option>
+                        </select>
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" bind:value={applicant.emailAddress}>
+                        <input type="email" id="email" bind:value={applicant.emailAddress} placeholder="example@gmail.com">
                         <label for="tinNo">TIN No.</label>
-                        <input type="text" id="tinNo" bind:value={applicant.tinNo}>
+                        <input type="text" id="tinNo" bind:value={applicant.tinNo} placeholder="000-000-000-000">
                     </div>
                     <div class="form-group">
-                        <label for="phicNo">Phic No.</label>
-                        <input type="text" id="phicNo" bind:value={applicant.phicNo}>
                         <label for="insuranceIDNo">Insurance ID No.</label>
-                        <input type="text" id="insuranceIDNo" bind:value={applicant.insuranceIDNo}>
+                        <input type="text" id="insuranceIDNo" bind:value={applicant.insuranceIDNo} placeholder="Enter Insurance ID No.">
+                        <label for="phicNo">Phic No.</label>
+                        <input type="text" id="phicNo" bind:value={applicant.phicNo} placeholder="00-000000000-0">
                     </div>
                     <div class="form-group">
                         <label for="guardianName">Guardian Name</label>
-                        <input type="text" id="guardianName" bind:value={applicant.guardianName}>
+                        <input type="text" id="guardianName" bind:value={applicant.guardianName} placeholder="Enter Guardian Name">
                         <label for="guardianContactNo">Guardian Contact No.</label>
-                        <input type="tel" id="guardianContactNo" bind:value={applicant.guardianContactNo}>
+                        <input type="tel" id="guardianContactNo" bind:value={applicant.guardianContactNo} placeholder="Enter Guardian Contact No.">
                         <label for="guardianOccupation">Guardian Occupation</label>
-                        <input type="text" id="guardianOccupation" bind:value={applicant.guardianOccupation}>
+                        <input type="text" id="guardianOccupation" bind:value={applicant.guardianOccupation} placeholder="Enter Guardian Occupation">
                     </div>
                 </fieldset>
             </form>
         </div>
       {:else if $currentSection === 'Section2'}
-        <div class= "formContainer">
+        <div class="formContainer">
             <form>
                 <fieldset>
                     <legend>EDUCATIONAL BACKGROUND</legend>
                     <div class="form-group">
                         <label for="collegeAttended">College Attended</label>
-                        <input type="text" id="collegeAttended" bind:value={applicant.collegeAttended}>
+                        <input type="text" id="collegeAttended" bind:value={applicant.collegeAttended} placeholder="Enter College Attended">
                         <label for="degree">Degree</label>
-                        <input type="text" id="degree" bind:value={applicant.degree}>
+                        <input type="text" id="degree" bind:value={applicant.degree} placeholder="Enter Degree">
                         <label for="yearGraduated">Year Graduated</label>
-                        <input type="number" id="yearGraduated" bind:value={applicant.yearGraduated}>
+                        <input type="number" id="yearGraduated" bind:value={applicant.yearGraduated} placeholder="Enter Year Graduated">
                     </div>
                     <div class="form-group">
                         <label for="medicalSchool">Medical School Attended</label>
-                        <input type="text" id="medicalSchool" bind:value={applicant.medSchoolAttended}>
+                        <input type="text" id="medicalSchool" bind:value={applicant.medSchoolAttended} placeholder="Enter Medical School Attended">
                         <label for="medYearGraduated">Year Graduated</label>
-                        <input type="number" id="medYearGraduated" bind:value={applicant.medSchoolGradYear}>
+                        <input type="number" id="medYearGraduated" bind:value={applicant.medSchoolGradYear} placeholder="Enter Year Graduated">
                     </div>
                     <div class="form-group">
                         <label for="internshipInstitution">Internship Institution</label>
-                        <input type="text" id="internshipInstitution" bind:value={applicant.internshipInstitution}>
+                        <input type="text" id="internshipInstitution" bind:value={applicant.internshipInstitution} placeholder="Enter Internship Institution">
                         <label for="internYearGraduated">Year Graduated</label>
-                        <input type="number" id="internYearGraduated" bind:value={applicant.internshipGradYear}>
+                        <input type="number" id="internYearGraduated" bind:value={applicant.internshipGradYear} placeholder="Enter Year Graduated">
                     </div>
                 </fieldset>
             </form>
@@ -592,11 +596,11 @@ function registerRestriction() {
                     {#each applicant.departmentSpecialties as specialty, index}
                         <div class="form-group" key={specialty.id}>
                             <label for={`departmentSpecialty_${index}`}>Department Specialty</label>
-                            <input type="text" id={`departmentSpecialty_${index}`} bind:value={specialty.departmentSpecialty}>
+                            <input type="text" id={`departmentSpecialty_${index}`} bind:value={specialty.departmentSpecialty} placeholder="Enter Specialty">
                             <label for={`hospital_${index}`}>Hospital</label>
-                            <input type="text" id={`hospital_${index}`} bind:value={specialty.hospital}>
+                            <input type="text" id={`hospital_${index}`} bind:value={specialty.hospital} placeholder="Enter Institution">
                             <label for={`residencyDuration_${index}`}>Duration</label>
-                            <input type="text" id={`residencyDuration_${index}`} bind:value={specialty.residencyDuration}>
+                            <input type="text" id={`residencyDuration_${index}`} bind:value={specialty.residencyDuration} placeholder="Enter Year Duration">
                             <button class="delButton" type="button" on:click={() => confirmDeleteApplicant(index)}>
                               <i class="fa-solid fa-trash"></i>
                             </button>
@@ -620,11 +624,11 @@ function registerRestriction() {
                     {#each applicant.postDepartmentSpecialties as specialty, index}
                         <div class="form-group" key={specialty.id}>
                             <label for={`postResSpecialty_${index}`}>Post Residency Specialty</label>
-                            <input type="text" id={`postResSpecialty_${index}`} bind:value={specialty.postResSpecialty}>
+                            <input type="text" id={`postResSpecialty_${index}`} bind:value={specialty.postResSpecialty} placeholder="Enter Sub-Specialty">
                             <label for={`postResInstitution_${index}`}>Post Residency Institution</label>
-                            <input type="text" id={`postResInstitution_${index}`} bind:value={specialty.postResInstitution}>
+                            <input type="text" id={`postResInstitution_${index}`} bind:value={specialty.postResInstitution} placeholder="Enter Institution">
                             <label for={`postResDuration_${index}`}>Post Residency Duration</label>
-                            <input type="text" id={`postResDuration_${index}`} bind:value={specialty.postResDuration}>
+                            <input type="text" id={`postResDuration_${index}`} bind:value={specialty.postResDuration} placeholder="Enter Year Duration">
                             <button class="delButton" type="button" on:click={() => confirmDeleteApplicantPost(index)}>
                               <i class="fa-solid fa-trash"></i>
                             </button>
