@@ -22,8 +22,8 @@
 </script>
 
 <header>
-    <input type="text" placeholder="Search">
-    <button><i class="fa-solid fa-magnifying-glass buttonIcon"></i></button>
+    <!-- <input type="text" placeholder="Search">
+    <button><i class="fa-solid fa-magnifying-glass buttonIcon"></i></button> -->
     <h3 class="user"><i class="fa-solid fa-user icon"></i>{fullName}</h3>
   </header>
 
@@ -60,32 +60,4 @@
     color: #333;
     font-size: 20px;
   }
-
-  button {
-    background-color: #13102d;
-    border: none;
-    border-radius: 20px;
-    padding: 9.5px 15px;
-    margin: 0;
-    margin-left: 5px;
-  }
-
-  .buttonIcon {
-    color: #fff;
-    font-size: 15px;
-  }
-
-  header input[type="text"] {
-    width: 30%;
-    padding: 5px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 15px;
-    border: 2px solid #ccc;
-    border-radius: 15px;
-    margin-left: 20px;
-    background-color: #f3f5ff;
-  }
-
 </style>

@@ -87,7 +87,6 @@
         // Check arrays separately for non-empty
         const arrayFields = [
             applicant.departmentSpecialties,
-            applicant.postDepartmentSpecialties
         ];
 
         const isComplete = fields.every((field, index) => {
